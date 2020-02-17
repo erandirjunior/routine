@@ -22,19 +22,29 @@ export default class TaskBuilder extends FormBuilder {
       .setColor('white')
       .setDarkMode(true)
 
+    this.addField(title)
+    this.addField(textarea)
+    this.addActivityLine(0)
+  }
+
+  addActivityLine (position) {
     const checkbox = new CheckBox()
       .setModel('check')
+      .setModelIsArray(true)
+      .setPosition(position)
       .setDisable(false)
       .setDarkMode(false)
       .setClass('col-xs-1')
       .setColor('red')
 
     const title2 = new Input()
-      .setTitle('Título')
-      .setModel('title')
+      .setTitle('Atividade')
+      .setModel('activity')
+      .setModelIsArray(true)
+      .setPosition(position)
       .setDisable(false)
       .setDarkMode(true)
-      .setClass('col-xs-8')
+      .setClass('col-xs-10')
       .setColor('white')
 
     const button = new Button()
@@ -44,9 +54,8 @@ export default class TaskBuilder extends FormBuilder {
       .setAlign('center')
       .setRound(true)
       .setClass('col-xs-1')
+      .setClick('add')
 
-    this.addField(title)
-    this.addField(textarea)
     this.addField(checkbox)
     this.addField(title2)
     this.addField(button)
