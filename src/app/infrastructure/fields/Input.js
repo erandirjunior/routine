@@ -3,8 +3,8 @@ import Field from 'src/app/infrastructure/fields/Field'
 export default class Input extends Field {
   createFields () {
     super.createFields()
-    this.focus = () => ''
-    this.blur = () => ''
+    this.focus = ''
+    this.blur = ''
   }
 
   setFieldType () {
