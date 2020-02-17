@@ -3,7 +3,7 @@ import Field from 'src/app/infrastructure/fields/Field'
 export default class Button extends Field {
   createFields () {
     super.createFields()
-    this.click = () => ''
+    this.click = ''
     this.label = ''
     this.align = 'center'
     this.size = ''
