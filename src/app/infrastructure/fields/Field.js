@@ -9,7 +9,7 @@ export default class Field {
   createFields () {
     this.title = ''
     this.model = ''
-    this.callback = () => ''
+    this.callback = ''
     this.hasError = false
     this.disable = false
     this.show = () => true
@@ -18,6 +18,8 @@ export default class Field {
     this.inputClass = ''
     this.darkMode = false
     this.color = ''
+    this.modelIsArray = false
+    this.position = 0
   }
 
   setTitle (title) {
@@ -92,5 +94,17 @@ export default class Field {
 
   setFieldType () {
     throw new Error('You should set field type')
+  }
+
+  setModelIsArray (value) {
+    this.modelIsArray = value
+
+    return this
+  }
+
+  setPosition (index) {
+    this.position = index
+
+    return this
   }
 }
