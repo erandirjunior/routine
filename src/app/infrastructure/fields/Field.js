@@ -20,6 +20,7 @@ export default class Field {
     this.color = ''
     this.modelIsArray = false
     this.position = 0
+    this.style = ''
   }
 
   setTitle (title) {
@@ -104,6 +105,12 @@ export default class Field {
 
   setPosition (index) {
     this.position = index
+
+    return this
+  }
+
+  setStyle (style) {
+    this.style = style
 
     return this
   }
