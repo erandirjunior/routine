@@ -12,6 +12,7 @@
     :align="field.align"
     :round="field.round"
     :class="field.inputClass"
+    :style="field.style"
     :text-color="field.textColor"
     @click="action(field.click, form)"
   />

@@ -6,6 +6,7 @@
     :color="field.color"
     :dark="field.darkMode"
     :class="field.inputClass"
+    :style="field.style"
   />
 </template>
 
