@@ -1,5 +1,5 @@
 <template>
-  <q-page class="bg-grey-10 text-white q-pa-sm">
+  <q-page class="q-pa-sm">
     <form-factory :fields="fields" :form="form" @action="action"/>
   </q-page>
 </template>

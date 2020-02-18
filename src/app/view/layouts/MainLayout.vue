@@ -25,9 +25,6 @@ export default {
 </script>
 
 <style>
-  .q-layout {
-    background-color: #1E1E1E;
-  }
   .secundary-color {
     background-color: #E63636 !important;
   }
