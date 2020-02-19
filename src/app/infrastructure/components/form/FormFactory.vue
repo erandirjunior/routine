@@ -20,6 +20,7 @@ import Input from './Input'
 import Textarea from './Textarea'
 import Button from './Button'
 import CheckBox from './CheckBox'
+import ButtonIcon from './ButtonIcon'
 
 export default {
   name: 'FormFactory',
@@ -37,7 +38,8 @@ export default {
     Input,
     Textarea,
     Button,
-    CheckBox
+    CheckBox,
+    ButtonIcon
   },
   methods: {
     action (action) {
