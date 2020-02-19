@@ -1,13 +1,12 @@
 import FormBuilder from 'src/app/infrastructure/form/FormBuilder'
 import Input from 'src/app/infrastructure/fields/Input'
 import Textarea from 'src/app/infrastructure/fields/Textarea'
-import Button from 'src/app/infrastructure/fields/Button'
-import CheckBox from 'src/app/infrastructure/fields/CheckBox'
+import ButtonIcon from 'src/app/infrastructure/fields/ButtonIcon'
 
 export default class TaskBuilder extends FormBuilder {
   createFields () {
     const title = new Input()
-      .setTitle('Título')
+      .setTitle('Título da Atividade')
       .setModel('title')
       .setDisable(false)
       .setClass('col-xs-12')
@@ -18,53 +17,42 @@ export default class TaskBuilder extends FormBuilder {
       .setDisable(false)
       .setClass('col-xs-12')
 
-    const btnAddTask = new Button()
-      .setLabel('+')
-      .setColor('red')
-      .setTextColor('white')
-      .setAlign('center')
-      .setRound(true)
-      .setClass('col-xs-1')
-      .setClick('add')
-
     this.addField(title)
     this.addField(description)
     this.addActivityLine(0)
-    this.addField(btnAddTask)
   }
 
   addActivityLine (position) {
-    const checkTask = new CheckBox()
-      .setModel('check')
-      .setModelIsArray(true)
-      .setPosition(position)
-      .setDisable(false)
-      .setDarkMode(false)
-      .setClass('col-sm-1')
-      .setColor('red')
-      .setInputClass('white')
-      .setStyle('margin-top: 65%')
-
     const taskTitle = new Input()
-      .setTitle('Atividade')
+      .setTitle('Nome da Tarefa')
       .setModel('activity')
       .setModelIsArray(true)
       .setPosition(position)
       .setDisable(false)
       .setClass('col-xs-8')
 
-    const btnDeleteTask = new Button()
-      .setLabel('-')
+    const btnDeleteTask = new ButtonIcon()
+      .setIcon('delete')
       .setColor('red')
       .setTextColor('white')
       .setAlign('center')
       .setRound(true)
       .setClass('col-sm-1')
-      .setClick('add')
+      .setClick('remove')
       .setStyle('margin-top: 36%')
+      .setPosition(position)
 
-    this.addField(checkTask)
     this.addField(taskTitle)
     this.addField(btnDeleteTask)
+  }
+
+  removeActivityLine (position) {
+    this.fields = this.fields.filter((item, index) => {
+      if ([0, 1].includes(index)) {
+        return item
+      }
+
+      return item.position !== position
+    })
   }
 }
