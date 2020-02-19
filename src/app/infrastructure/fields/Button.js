@@ -14,7 +14,6 @@ export default class Button extends Field {
     this.push = false
     this.pussy = false
     this.fab = false
-    this.icon = ''
     this.textColor = ''
     this.round = false
   }
@@ -87,12 +86,6 @@ export default class Button extends Field {
 
   setFab (fab) {
     this.fab = fab
-
-    return this
-  }
-
-  setIcon (icon) {
-    this.icon = icon
 
     return this
   }
