@@ -1,4 +1,4 @@
-import FormBuilder from 'src/app/infrastructure/form/FormBuilder'
+import FormBuilder from 'src/app/infrastructure/builder/FormBuilder'
 import Input from 'src/app/infrastructure/fields/Input'
 import Textarea from 'src/app/infrastructure/fields/Textarea'
 import ButtonIcon from 'src/app/infrastructure/fields/ButtonIcon'
