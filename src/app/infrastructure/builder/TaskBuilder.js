@@ -5,6 +5,11 @@ import ButtonIcon from 'src/app/infrastructure/fields/ButtonIcon'
 
 export default class TaskBuilder extends FormBuilder {
   createFields () {
+    this.insertFirstFields()
+    this.addActivityLine(0)
+  }
+
+  insertFirstFields () {
     const title = new Input()
       .setTitle('Título da Atividade')
       .setModel('title')
@@ -19,7 +24,6 @@ export default class TaskBuilder extends FormBuilder {
 
     this.addField(title)
     this.addField(description)
-    this.addActivityLine(0)
   }
 
   addActivityLine (position) {
@@ -46,13 +50,8 @@ export default class TaskBuilder extends FormBuilder {
     this.addField(btnDeleteTask)
   }
 
-  removeActivityLine (position) {
-    this.fields = this.fields.filter((item, index) => {
-      if ([0, 1].includes(index)) {
-        return item
-      }
-
-      return item.position !== position
-    })
+  resetFields () {
+    this.fields = []
+    this.insertFirstFields()
   }
 }
