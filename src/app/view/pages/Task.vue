@@ -14,13 +14,17 @@
 </template>
 
 <script>
-import TaskBuilder from '../../infrastructure/form/TaskBuilder'
+import TaskBuilder from '../../infrastructure/builder/TaskBuilder'
 import FormFactory from '../../infrastructure/components/form/FormFactory'
+import handlerFormMixin from '../../infrastructure/mixins/handlerFormMixin'
+import TaskController from '../../application/controllers/TaskController'
+
 export default {
   name: 'PageIndex',
   data () {
     return {
       fields: new TaskBuilder(),
+      controller: new TaskController(),
       form: {
         title: '',
         activity: [''],
@@ -28,12 +32,14 @@ export default {
       }
     }
   },
+  mixins: [
+    handlerFormMixin
+  ],
   components: {
     FormFactory
   },
   methods: {
     action (emit) {
-      console.log(emit)
       this[emit.action.action](emit)
     },
     add () {
@@ -45,11 +51,17 @@ export default {
     remove (emit) {
       const position = emit.action.field.position
       this.removePropertyForm(position)
-      this.fields.removeActivityLine(position)
+      this.fields.resetFields()
+      this.createFields()
     },
     removePropertyForm (position) {
       this.form.activity = this.form.activity.filter((item, index) => {
         return index !== position
+      })
+    },
+    createFields () {
+      this.form.activity.forEach((item, index) => {
+        this.fields.addActivityLine(index)
       })
     }
   }
