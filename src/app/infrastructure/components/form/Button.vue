@@ -14,6 +14,7 @@
     :class="field.inputClass"
     :style="field.style"
     :text-color="field.textColor"
+    :size="field.size"
     @click="action(field.click, form)"
   />
 </template>

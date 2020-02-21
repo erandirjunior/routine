@@ -7,6 +7,12 @@
     :dark="field.darkMode"
     :class="field.inputClass"
     :style="field.style"
+    :filled="field.filled"
+    :outlined="field.outlined"
+    :square="field.square"
+    :standout="field.standout"
+    :rounded="field.rounded"
+    :borderless="field.borderless"
   />
 </template>
 
