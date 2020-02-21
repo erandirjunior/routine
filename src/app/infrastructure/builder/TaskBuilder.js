@@ -6,7 +6,6 @@ import ButtonIcon from 'src/app/infrastructure/fields/ButtonIcon'
 export default class TaskBuilder extends FormBuilder {
   createFields () {
     this.insertFirstFields()
-    this.addActivityLine(0)
   }
 
   insertFirstFields () {
@@ -22,8 +21,29 @@ export default class TaskBuilder extends FormBuilder {
       .setDisable(false)
       .setClass('col-xs-12')
 
+    const activityTitle = new Input()
+      .setTitle('Tarefa')
+      .setModel('activityTitle')
+      .setDisable(false)
+      .setClass('col-xs-10')
+      .setOutlined(true)
+      .setStyle('margin: 3% 4% 8% 3%')
+
+    const addActivity = new ButtonIcon()
+      .setIcon('add')
+      .setColor('grey-5')
+      .setTextColor('white')
+      .setAlign('center')
+      .setRound(true)
+      .setClass('col-sm-1')
+      .setClick('add')
+      .setStyle('margin-top: 20%; padding: 10%; margin-left: -25% !important;')
+      .setSize('lg')
+
     this.addField(title)
     this.addField(description)
+    this.addField(activityTitle)
+    this.addField(addActivity)
   }
 
   addActivityLine (position) {

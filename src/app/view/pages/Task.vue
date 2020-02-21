@@ -1,15 +1,6 @@
 <template>
   <q-page class="q-pa-sm">
     <form-factory :fields="fields" :form="form" @action="action"/>
-    <q-page-sticky position="bottom-right" :offset="[18, 18]">
-      <q-btn
-        fab
-        icon="add"
-        class="secundary-color"
-        color="#282828"
-        @click="add()"
-      />
-    </q-page-sticky>
   </q-page>
 </template>
 
@@ -27,7 +18,8 @@ export default {
       controller: new TaskController(),
       form: {
         title: '',
-        activity: [''],
+        activityTitle: '',
+        activity: [],
         check: [false]
       }
     }
@@ -43,8 +35,9 @@ export default {
       this[emit.action.action](emit)
     },
     add () {
-      this.form.activity.push('')
+      this.form.activity.push(this.form.activityTitle)
       this.form.check.push(false)
+      this.form.activityTitle = ''
       const length = this.form.activity.length
       this.fields.addActivityLine(length - 1)
     },
