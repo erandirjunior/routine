@@ -6,6 +6,7 @@
     :color="field.color"
     :dark="field.darkMode"
     :class="field.inputClass"
+    :disable="field.disable"
     :style="field.style"
     :filled="field.filled"
     :outlined="field.outlined"
