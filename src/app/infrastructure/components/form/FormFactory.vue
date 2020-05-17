@@ -9,7 +9,8 @@
         :is="field.fieldType"
         :form="form"
         :field="field"
-        @action="action"
+        :validation="validation"
+        @action="formAction"
       />
     </div>
   </div>
@@ -21,6 +22,9 @@ import Textarea from './Textarea'
 import Button from './Button'
 import CheckBox from './CheckBox'
 import ButtonIcon from './ButtonIcon'
+import Select from './Select'
+import DateTime from './DateTime'
+import ButtonDateIcon from './ButtonDateIcon'
 
 export default {
   name: 'FormFactory',
@@ -32,6 +36,11 @@ export default {
     form: {
       type: Object,
       required: true
+    },
+    validation: {
+      type: Object,
+      required: false,
+      default: () => {}
     }
   },
   components: {
@@ -39,11 +48,14 @@ export default {
     Textarea,
     Button,
     CheckBox,
-    ButtonIcon
+    ButtonIcon,
+    Select,
+    DateTime,
+    ButtonDateIcon
   },
   methods: {
-    action (action) {
-      this.$emit('action', { action: action, value: this.form })
+    formAction (action) {
+      this.$emit('formAction', { action: action, value: this.form })
     }
   }
 }

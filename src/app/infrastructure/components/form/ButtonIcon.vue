@@ -15,28 +15,21 @@
     :style="field.style"
     :text-color="field.textColor"
     :icon="field.icon"
+    :size="field.size"
+    :disable="field.disable(field, form)"
     @click="action(field.click)"
+    v-if="field.show(field, form)"
   />
 </template>
 
 <script>
+import formComponentMixin from '../../mixins/formComponentMixin'
+
 export default {
   name: 'Button',
-  props: {
-    field: {
-      type: Object,
-      required: true
-    },
-    form: {
-      type: Object,
-      required: true
-    }
-  },
-  methods: {
-    action (action) {
-      this.$emit('action', { action: action, value: this.form, field: this.field })
-    }
-  }
+  mixins: [
+    formComponentMixin
+  ]
 }
 </script>
 
