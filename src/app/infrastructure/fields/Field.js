@@ -11,7 +11,7 @@ export default class Field {
     this.model = ''
     this.callback = ''
     this.hasError = false
-    this.disable = false
+    this.disable = () => false
     this.show = () => true
     this.input = () => ''
     this.class = ''
@@ -21,6 +21,8 @@ export default class Field {
     this.modelIsArray = false
     this.position = 0
     this.style = ''
+    this.bordeless = false
+    this.errorMessage = ''
   }
 
   setTitle (title) {
@@ -111,6 +113,18 @@ export default class Field {
 
   setStyle (style) {
     this.style = style
+
+    return this
+  }
+
+  setBordeless (bordeless) {
+    this.bordeless = bordeless
+
+    return this
+  }
+
+  setErrorMessage (errorMessage) {
+    this.errorMessage = errorMessage
 
     return this
   }

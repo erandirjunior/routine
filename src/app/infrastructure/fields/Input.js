@@ -5,12 +5,14 @@ export default class Input extends Field {
     super.createFields()
     this.focus = ''
     this.blur = ''
+    this.dense = false
     this.filled = false
     this.outlined = false
     this.standout = false
     this.bordeless = false
     this.rounded = false
     this.square = false
+    this.readonly = () => false
   }
 
   setFieldType () {
@@ -63,6 +65,18 @@ export default class Input extends Field {
 
   setSquare (square) {
     this.square = square
+
+    return this
+  }
+
+  setReadonly (readonly) {
+    this.readonly = readonly
+
+    return this
+  }
+
+  setDense (dense) {
+    this.dense = dense
 
     return this
   }
