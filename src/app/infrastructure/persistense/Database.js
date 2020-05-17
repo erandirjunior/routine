@@ -1,11 +1,10 @@
 export default class Database {
   static getConnection () {
     const db = window.sqlitePlugin.openDatabase({
-      name: 'task.db',
+      name: 'routine.db',
       location: 'default'
     })
 
     return db
   }
 }
-
