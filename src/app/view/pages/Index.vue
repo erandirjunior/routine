@@ -1,87 +1,142 @@
 <template>
-  <q-page class="text-white">
+  <q-page class="text-black">
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-btn
         fab
         icon="add"
-        class="secundary-color"
-        color="#282828"
-        to="/tasks"
+        color="teal-5"
+        to="/task"
       />
     </q-page-sticky>
-
-    <div class="row q-col-gutter-sm">
-      <q-list dark separator class="col-xs-12">
-        <q-item clickable v-ripple>
-          <q-item-section>Single line item</q-item-section>
-        </q-item>
-        <q-item clickable v-ripple>
-          <q-item-section>Single line item</q-item-section>
-        </q-item>
-        <q-item clickable v-ripple>
-          <q-item-section>Single line item</q-item-section>
-        </q-item>
-
-        <q-item clickable v-ripple>
-          <q-item-section>
-            <q-item-label>Item with caption</q-item-label>
-            <q-item-label caption>Caption</q-item-label>
-          </q-item-section>
-        </q-item>
-
-        <q-item clickable v-ripple>
-          <q-item-section>
-            <q-item-label overline>OVERLINE</q-item-label>
-            <q-item-label>Item with caption</q-item-label>
-          </q-item-section>
-        </q-item>
-      </q-list>
-    </div>
-    <q-dialog v-model="alert">
-      olá
-      <q-btn flat label="OK" color="primary" v-close-popup />
-    </q-dialog>
+    <q-scroll-area
+      horizontal
+      style="width: 100%;"
+      class="secondary-bg-color rounded-borders"
+    >
+      <div class="row no-wrap">
+        <q-btn
+          flat
+          size="md"
+          color="white"
+          style=" margin: 3% 0% 3% 4%"
+          label="ALL"
+          stack
+          @click="loadTasks()"
+        />
+        <q-btn
+          flat
+          v-for="item in groups" :key="item.id"
+          size="md"
+          style=" margin: 3% 2% 3% 4%"
+          :color="colorButtons[item.id]"
+          :label="item.name"
+          stack
+          @click="loadTasksByIdGroup(item.id)"
+        />
+      </div>
+    </q-scroll-area>
+    <q-scroll-area
+      class="list-main secondary-bg-color rounded-borders"
+    >
+      <list-component
+        :data="tasks"
+        section="name"
+        @action="goToTask"
+      />
+    </q-scroll-area>
   </q-page>
 </template>
 
 <script>
+import Database from '../../infrastructure/persistense/Database'
+import Tables from '../../infrastructure/persistense/Tables'
+import ListComponent from '../../infrastructure/components/list/ListComponent'
+import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
+import TaskControllerBuilder from '../../infrastructure/builder/controller/TaskControllerBuilder'
+
 export default {
   name: 'PageIndex',
   data () {
     return {
-      alert: false
+      colorButtons: [],
+      color: '',
+      fab1: true,
+      tasks: [],
+      groups: [],
+      groupController: GroupControllerBuilder.findAll(),
+      taskFindAllController: TaskControllerBuilder.findAll(),
+      taskFindByGroupController: TaskControllerBuilder.findByGroup()
     }
   },
+  components: {
+    ListComponent
+  },
   methods: {
-    createDatabase () {
-      document.addEventListener('deviceready', () => {
-        const db = window.sqlitePlugin.openDatabase({
-          name: 'my.db',
-          location: 'default'
-        })
-        this.createTables(db)
-      })
+    getColor () {
+      const colors = this.filterColor(this.color)
+      const numberColor = Math.floor(Math.random() * (colors.length - 1))
+      this.color = colors[numberColor]
+      return colors[numberColor]
     },
-    createTables (db) {
-      console.log(db)
-      db.transaction(function (tx) {
-        tx.executeSql('CREATE TABLE IF NOT EXISTS DemoTable (name, score)')
-        tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Alice', 101])
-        tx.executeSql('INSERT INTO DemoTable VALUES (?,?)', ['Betty', 202])
-        tx.executeSql('SELECT count(*) AS mycount FROM DemoTable', [], function (tx, rs) {
-          console.log('Record count (expected to be 2): ' + rs.rows.item(0).mycount)
-        }, function (tx, error) {
-          console.log('SELECT error: ' + error.message)
+    filterColor (removeColor) {
+      const colors = [
+        'red',
+        'blue',
+        'yellow',
+        'green',
+        'grey',
+        'orange',
+        'indigo',
+        'teal',
+        'cyan',
+        'brown'
+      ]
+
+      return colors.filter(item => item !== removeColor)
+    },
+    loadGroups () {
+      this.groupController.findAll()
+        .then(data => {
+          data.forEach((item) => {
+            this.colorButtons[item.id] = this.getColor()
+          })
+          this.groups = data
         })
-      }, function (error) {
-        console.log('Transaction ERROR: ' + error.message)
-      }, function () {
-        console.log('Populated database OK')
-      })
+    },
+    loadTasks () {
+      this.taskFindAllController.findAll()
+        .then(data => {
+          this.tasks = data
+        })
+    },
+    loadTasksByIdGroup (id) {
+      this.taskFindByGroupController.findByIdGroup(id)
+        .then(data => {
+          this.tasks = data
+        })
+    },
+    createTableIfNotExists () {
+      const database = Database.getConnection()
+      const tables = new Tables(database)
+      tables.createTable()
+    },
+    goToTask (value) {
+      this.$router.push(`/task/${value.item.id}`)
     }
   },
   created () {
-    console.log('aqui')
+    this.createTableIfNotExists()
+    this.loadGroups()
+    this.loadTasks()
   }
 }
 </script>
+
+<style>
+  .list-main {
+    width: 90%;
+    margin-top: 15%;
+    border-radius: 0% 2% 2% 0%;
+    height: 24em
+  }
+</style>
