@@ -1,4 +1,4 @@
-import FormBuilder from 'src/app/infrastructure/builder/pages/FormBuilder'
+import FormBuilder from 'src/app/infrastructure/builder/forms/FormBuilder'
 import Input from 'src/app/infrastructure/fields/Input'
 import ButtonIcon from 'src/app/infrastructure/fields/ButtonIcon'
 
@@ -7,7 +7,6 @@ export default class GroupBuilder extends FormBuilder {
     const groupTitle = new Input()
       .setTitle('Group name')
       .setModel('name')
-      .setDisable(false)
       .setColor('white')
       .setClass('col-xs-8 secondary-bg-color')
       .setStyle('margin: 5% 0% 5% 5%; color: white')
