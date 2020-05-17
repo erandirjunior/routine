@@ -12,9 +12,33 @@
           icon="menu"
           color="white"
           stack
+          @click="right = !right"
         />
       </q-toolbar>
     </q-header>
+
+    <q-drawer
+      show-if-above
+      v-model="right"
+      side="right"
+      bordered
+      content-class="primary-bg-color"
+    >
+      <q-list bordered separator dark>
+        <q-item
+          clickable
+          v-ripple
+          v-for="(item, index) in menu"
+          :key="index"
+          :to="item.to"
+        >
+          <q-item-section avatar>
+            <q-icon :name="item.icon" />
+          </q-item-section>
+          <q-item-section class="text-teal-5">{{ item.label }}</q-item-section>
+        </q-item>
+      </q-list>
+    </q-drawer>
 
     <q-page-container class="primary-bg-color">
       <router-view />
@@ -27,6 +51,19 @@ export default {
   name: 'MainLayout',
   data () {
     return {
+      right: false,
+      menu: [
+        {
+          icon: 'group_work',
+          label: 'Groups',
+          to: '/groups'
+        },
+        {
+          icon: 'list_alt',
+          label: 'Tasks',
+          to: '/tasks'
+        }
+      ]
     }
   }
 }
