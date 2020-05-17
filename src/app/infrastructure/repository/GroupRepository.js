@@ -4,12 +4,14 @@ export default class GroupRepository {
   }
 
   create (name) {
-    this.connection.transaction(function (tx) {
-      tx.executeSql('INSERT INTO tb_group (name) VALUES (?)', [name])
-
-      return true
-    }, function () {
-      return false
+    return new Promise((resolve, reject) => {
+      this.connection.transaction(function (tx) {
+        tx.executeSql('INSERT INTO tb_group (name) VALUES (?)', [name], function (tx, results) {
+          resolve(true)
+        }, function () {
+          reject(false)
+        })
+      })
     })
   }
 
@@ -25,7 +27,7 @@ export default class GroupRepository {
 
           resolve(data)
         }, function (error) {
-          console.log(error)
+          reject(error)
         })
       })
     })
@@ -49,21 +51,25 @@ export default class GroupRepository {
   }
 
   delete (id) {
-    this.connection.transaction((tx) => {
-      tx.executeSql('UPDATE tb_group SET deleted_at = datetime(\'now\') WHERE id = ?', [id], function (tx, rs) {
-        return true
-      }, function () {
-        return false
+    return new Promise((resolve, reject) => {
+      this.connection.transaction((tx) => {
+        tx.executeSql('UPDATE tb_group SET deleted_at = datetime(\'now\') WHERE id = ?', [id], function (tx, rs) {
+          resolve(true)
+        }, function () {
+          reject(false)
+        })
       })
     })
   }
 
   update (id, name) {
-    this.connection.transaction((tx) => {
-      tx.executeSql('UPDATE tb_group SET updated_at = datetime(\'now\'), name = ? WHERE id = ?', [name, id], function (tx, rs) {
-        return true
-      }, function () {
-        return false
+    return new Promise((resolve, reject) => {
+      this.connection.transaction((tx) => {
+        tx.executeSql('UPDATE tb_group SET updated_at = datetime(\'now\'), name = ? WHERE id = ?', [name, id], function (tx, rs) {
+          resolve(true)
+        }, function () {
+          reject(false)
+        })
       })
     })
   }
