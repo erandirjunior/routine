@@ -7,35 +7,29 @@ const routes = [
       {
         path: '',
         component: () => import('../app/view/pages/Index.vue')
+      }
+    ]
+  },
+  {
+    path: '/',
+    component: () => import('../app/view/layouts/EmptyLayout'),
+    children: [
+      {
+        path: '/task',
+        component: () => import('../app/view/pages/Task.vue')
       },
       {
         path: '/tasks',
         component: () => import('../app/view/pages/Tasks.vue')
       },
       {
-        path: '/groups',
-        component: () => import('../app/view/pages/Groups.vue')
-      },
-      {
-        path: '/group',
-        component: () => import('../app/view/pages/Group.vue')
-      },
-      {
-        path: '/group/:id',
-        component: () => import('../app/view/pages/Group.vue'),
+        path: '/task/:id',
+        component: () => import('../app/view/pages/Task.vue'),
         props: true
       },
       {
-        path: '/task',
-        component: () => import('../app/view/pages/Task.vue')
-      },
-      {
-        path: '/about',
-        component: () => import('../app/view/pages/About.vue')
-      },
-      {
-        path: '/contact',
-        component: () => import('../app/view/pages/Contact.vue')
+        path: '/groups',
+        component: () => import('../app/view/pages/Groups.vue')
       }
     ]
   }
