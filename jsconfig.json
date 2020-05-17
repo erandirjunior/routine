@@ -4,11 +4,11 @@
     "paths": {
       "src/*": ["src/*"],
       "app/*": ["*"],
-      "components/*": ["src/components/*"],
-      "layouts/*": ["src/layouts/*"],
-      "pages/*": ["src/pages/*"],
-      "assets/*": ["src/assets/*"],
-      "boot/*": ["src/boot/*"],
+      "components/*": ["src/app/view/components/*"],
+      "layouts/*": ["src/app/view/layouts/*"],
+      "pages/*": ["src/app/view/pages/*"],
+      "assets/*": ["src/app/view/assets/*"],
+      "boot/*": ["src/app/infraestructure/boot/*"],
       "vue$": ["node_modules/vue/dist/vue.esm.js"]
     }
   },
