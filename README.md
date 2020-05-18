@@ -18,6 +18,6 @@ quasar dev -m cordova -T android
 ```
 
 ## View Screenshots
-[Index page](<img src="https://github.com/erandirjunior/routine/tree/master/src/app/view/assets/index_image.jpg">)
+[Index page](https://github.com/erandirjunior/routine/tree/master/src/app/view/assets/index_image.jpg)
 
-[Task page](<img src="https://github.com/erandirjunior/routine/tree/master/src/app/view/assets/task_image.jpg">)
+[Task page](https://github.com/erandirjunior/routine/tree/master/src/app/view/assets/task_image.jpg)
