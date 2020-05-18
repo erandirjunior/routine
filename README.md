@@ -17,6 +17,7 @@ npm install
 quasar dev -m cordova -T android
 ```
 
-## Screenshots
-<img src="https://github.com/erandirjunior/routine/tree/master/src/app/view/assets/index_image.jpg">
-<img src="https://github.com/erandirjunior/routine/tree/master/src/app/view/assets/task_image.jpg">
+## View Screenshots
+>[Index page](<img src="https://github.com/erandirjunior/routine/tree/master/src/app/view/assets/index_image.jpg">)
+
+>[Task page](<img src="https://github.com/erandirjunior/routine/tree/master/src/app/view/assets/task_image.jpg">)
