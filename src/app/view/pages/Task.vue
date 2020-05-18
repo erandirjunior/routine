@@ -226,13 +226,10 @@ export default {
       this.controllerTaskItemUpdate
         .update(id, finished)
         .then(() => {
-          this.loadTaskItems('Success to finish task item!', 'green', 'thumb_up')
+          this.loadTaskItems('Success in updating task item status!', 'green', 'thumb_up')
         })
-    }
-  },
-  created () {
-    this.loadGroups()
-    if (this.id) {
+    },
+    findDataById () {
       this.controllerFind.find(this.id)
         .then(resp => {
           this.form.id = resp.id
@@ -246,6 +243,12 @@ export default {
             this.addTaskItem(task.id, task.name, position, task.finished)
           })
         })
+    }
+  },
+  created () {
+    this.loadGroups()
+    if (this.id) {
+      this.findDataById()
     }
   }
 }
