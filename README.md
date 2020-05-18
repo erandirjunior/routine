@@ -1,26 +1,22 @@
-# Quasar App (app_task)
+# Quasar App (Routine)
 
-A Quasar Framework app
+> Route is a Quasar Framework app, developed to practice Vue, Quasar and Mobile skills.
+
+> This app work to organize your everyday activities.
 
 ## Install the dependencies
 ```bash
 npm install
 ```
 
-### Start the app in development mode (hot-code reloading, error reporting, etc.)
+## Setting cordova mode in quasar
+[Setting cordova in quasar](https://quasar.dev/quasar-cli/developing-cordova-apps/introduction)
+
+## Start the app in development mode (hot-code reloading, error reporting, etc.)
 ```bash
-quasar dev
+quasar dev -m cordova -T android
 ```
 
-### Lint the files
-```bash
-npm run lint
-```
-
-### Build the app for production
-```bash
-quasar build
-```
-
-### Customize the configuration
-See [Configuring quasar.conf.js](https://quasar.dev/quasar-cli/quasar-conf-js).
+## Screenshots
+<img src="https://github.com/erandirjunior/routine/src/app/view/assets/index_image.jpg">
+<img src="https://github.com/erandirjunior/routine/src/app/view/assets/task_image.jpg">
