@@ -37,7 +37,7 @@ export default class TaskBuilder extends FormBuilder {
       .setStyle('color: teal-5; margin: 20% 0% 0% 0%')
       .setColor('teal-5')
       .setRound(true)
-      .setDisable((field, form) => !!form.id)
+      .setDisable((field, form) => !form.repeat || !!form.id)
 
     const titleDate = new Input()
       .setModel('finalDate')
