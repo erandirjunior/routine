@@ -18,6 +18,11 @@
     <preference name="loadUrlTimeoutValue" value="700000" />
     <platform name="android">
         <allow-intent href="market:*" />
+        <icon density="ldpi" src="platforms/android/app/src/main/res/icons/ic_launcher36x36.png" />
+        <icon density="hdpi" src="platforms/android/app/src/main/res/icons/ic_launcher72x72.png" />
+        <icon density="xhdpi" src="platforms/android/app/src/main/res/icons/ic_launcher96x96.png" />
+        <icon density="xxhdpi" src="platforms/android/app/src/main/res/icons/ic_launcher144x144.png" />
+        <icon density="xxxhdpi" src="platforms/android/app/src/main/res/icons/ic_launcher192x192.png" />
     </platform>
     <platform name="ios">
         <allow-intent href="itms:*" />
