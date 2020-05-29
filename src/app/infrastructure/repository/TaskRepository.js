@@ -25,7 +25,8 @@ export default class TaskRepository {
                       CASE
                         WHEN T.title IS NULL THEN G.name || ' - ' || T.created_at
                         ELSE T.title || ' - ' || T.created_at
-                      END name
+                      END name,
+                      G.color
                     FROM
                       tb_task T
                       INNER JOIN tb_group G ON G.id = T.group_id
@@ -46,7 +47,8 @@ export default class TaskRepository {
             data.push({
               id: rs.rows.item(i).id,
               name: rs.rows.item(i).name,
-              created: rs.rows.item(i).created_at
+              created: rs.rows.item(i).created_at,
+              color: rs.rows.item(i).color
             })
           }
 
@@ -65,7 +67,8 @@ export default class TaskRepository {
                       CASE
                         WHEN T.title IS NULL THEN G.name || ' - ' || T.created_at
                         ELSE T.title || ' - ' || T.created_at
-                      END name
+                      END name,
+                      G.color
                     FROM
                       tb_task T
                       INNER JOIN tb_group G ON G.id = T.group_id
@@ -85,7 +88,8 @@ export default class TaskRepository {
             data.push({
               id: rs.rows.item(i).id,
               name: rs.rows.item(i).name,
-              created: rs.rows.item(i).created_at
+              created: rs.rows.item(i).created_at,
+              color: rs.rows.item(i).color
             })
           }
 
