@@ -1,13 +1,12 @@
 <template>
   <q-page>
-    <header-back></header-back>
+    <header-back to="/"/>
     <q-page-sticky position="bottom-right" :offset="[18, 18]">
       <q-btn
         fab
         icon="add"
         color="teal-5"
-        @click="enableAddButton()"
-        v-if="!show"
+        to="/group"
       />
     </q-page-sticky>
     <table-component
@@ -17,23 +16,12 @@
       :style-class="styleClass"
       @action="action"
     />
-    <div v-if="show" style="margin-top: 10%">
-      <form-factory
-        :fields="fields"
-        :form="form"
-        :validation="$v"
-        @formAction="action"
-      />
-    </div>
   </q-page>
 </template>
 
 <script>
-import handlerFormMixin from '../../infrastructure/mixins/handlerFormMixin'
-import TableComponent from '../../infrastructure/components/table/TableComponent'
-import GroupBuilder from '../../infrastructure/builder/forms/GroupBuilder'
-import FormFactory from '../../infrastructure/components/form/FormFactory'
-import { required } from 'vuelidate/lib/validators'
+import handlerFormMixin from '../../infrastructure/view/mixins/handlerFormMixin'
+import TableComponent from '../../infrastructure/view/components/table/TableComponent'
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
 import HeaderBack from '../components/HeaderBack'
 
@@ -41,12 +29,8 @@ export default {
   name: 'Groups',
   data () {
     return {
-      controllerCreate: GroupControllerBuilder.create(),
-      controllerUpdate: GroupControllerBuilder.update(),
       controllerDelete: GroupControllerBuilder.delete(),
-      controllerFind: GroupControllerBuilder.find(),
       controllerFindAll: GroupControllerBuilder.findAll(),
-      fields: new GroupBuilder(),
       styleClass: {
         cardClass: 'secondary-bg-color',
         tableClass: 'text-teal-5',
@@ -91,12 +75,7 @@ export default {
           sortable: true
         }
       ],
-      data: [],
-      show: false,
-      form: {
-        name: '',
-        id: ''
-      }
+      data: []
     }
   },
   mixins: [
@@ -104,58 +83,20 @@ export default {
   ],
   components: {
     TableComponent,
-    FormFactory,
     HeaderBack
   },
-  validations: {
-    form: {
-      name: {
-        required
-      }
-    }
-  },
   methods: {
-    saveData () {
-      this.form.id ? this.update() : this.create()
-    },
-    clearForm () {
-      this.form.name = ''
-      this.form.id = ''
-    },
-    afterSuccessUpdate () {
-      this.showAlert('Sucess to update data!', 'green', 'thumb_up')
-      this.afterAction()
-    },
-    afterSuccessCreate () {
-      this.showAlert('Success to save data!', 'green', 'thumb_up')
-      this.afterAction()
-    },
     afterSuccessDelete () {
       this.showAlert('Success to delete data!', 'green', 'thumb_up')
-      this.clearForm()
-      this.show = false
-    },
-    afterAction () {
-      this.clearForm()
       this.loadData()
-      this.enableAddButton()
-    },
-    enableAddButton () {
-      this.show = !this.show
-      return this.show
     },
     delete (emit) {
       this.controllerDelete.delete(emit.id)
       this.afterSuccessDelete()
       this.loadData()
     },
-    edit (action) {
-      this.controllerFind.find(action.id)
-        .then(result => {
-          this.form.name = result.name
-          this.form.id = result.id
-          this.enableAddButton()
-        })
+    edit (group) {
+      this.$router.push(`/group/${group.id}`)
     },
     loadData () {
       this.controllerFindAll.findAll()
