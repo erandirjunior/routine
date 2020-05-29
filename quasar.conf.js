@@ -83,7 +83,8 @@ module.exports = function (ctx) {
         'QCardSection',
         'QFab',
         'QFabAction',
-        'QSeparator'
+        'QSeparator',
+        'QMenu'
       ],
 
       directives: [
