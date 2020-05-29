@@ -14,6 +14,7 @@ export default class Tables {
       tx.executeSql(`CREATE TABLE IF NOT EXISTS tb_group (
                       id INTEGER PRIMARY KEY,
                       name TEXT NOT NULL,
+                      color TEXT NOT NULL,
                       created_at TEXT DEFAULT CURRENT_TIMESTAMP,
                       deleted_at TEXT,
                       updated_at TEXT
