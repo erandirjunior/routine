@@ -34,7 +34,7 @@
           style="margin: 0% 5%"
           section="name"
           :data="form.tasks"
-          :buttons="buttons.getFields()"
+          :components="buttons.getFields()"
           @action="action"
         />
       </div>
@@ -52,11 +52,11 @@
 
 <script>
 import TaskBuilder from '../../infrastructure/builder/forms/TaskBuilder'
-import FormFactory from '../../infrastructure/components/form/FormFactory'
-import handlerFormMixin from '../../infrastructure/mixins/handlerFormMixin'
+import FormFactory from '../../infrastructure/view/components/form/FormFactory'
+import handlerFormMixin from '../../infrastructure/view/mixins/handlerFormMixin'
 import { required } from 'vuelidate/lib/validators'
 import ListButtonBuilder from '../../infrastructure/builder/forms/ListButtonBuilder'
-import ListActionComponent from '../../infrastructure/components/list/ListActionComponent'
+import ListActionComponent from '../../infrastructure/view/components/list/ListActionComponent'
 import TaskControllerBuilder from '../../infrastructure/builder/controller/TaskControllerBuilder'
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
 import TaskItemControllerBuilder from '../../infrastructure/builder/controller/TaskItemControllerBuilder'
@@ -86,7 +86,8 @@ export default {
         date: '',
         repeat: false,
         finalDate: ''
-      }
+      },
+      position: ''
     }
   },
   mixins: [
@@ -109,22 +110,33 @@ export default {
     }
   },
   methods: {
-    finishFullTask () {
-      this.controllerFinish.finish(this.form.id)
-        .then(() => {
-          this.showAlert('Success to finish task!', 'green', 'thumb_up')
-          this.clearForm()
+    loadGroups () {
+      this.groupController.findAll()
+        .then(data => {
+          const items = data.map(item => {
+            return { label: item.name, value: item.id }
+          })
+
+          this.fields.addOptions(items)
+        })
+    },
+    findDataById () {
+      this.controllerFind.find(this.id)
+        .then(resp => {
+          this.form.id = resp.id
+          this.form.repeat = true
+          this.form.groupId = resp.groupId
+          this.form.date = resp.date
+          this.form.finalDate = resp.created
+          this.form.title = resp.name
+          resp.tasks.forEach(task => {
+            const position = this.form.tasks.length
+            this.addTaskItem(task.id, task.name, position, task.finished)
+          })
         })
     },
     submit () {
       return this.form.id ? this.update() : this.create()
-    },
-    saveItem (item) {
-      if (this.form.id) {
-        this.controllerTaskItemCreate
-          .create([item], this.form.id)
-          .then(() => this.loadTaskItems('Success to save task item', 'green', 'thumb_up'))
-      }
     },
     afterSuccessCreate () {
       this.clearForm()
@@ -138,58 +150,39 @@ export default {
       this.form.finalDate = ''
       this.form.repeat = false
     },
-    showSaveButton () {
-      return this.form.tasks.length > 0
-    },
-    createObjectItem () {
-      const position = this.form.tasks.length
-      return {
-        name: this.form.taskTitle,
-        position: position,
-        finished: false
-      }
-    },
-    add () {
+    handleTaskItem () {
       if (this.form.taskTitle) {
-        const item = this.createObjectItem()
-        this.form.taskTitle = ''
-
-        if (this.form.id) {
-          return this.saveItem(item)
+        if (this.position !== '') {
+          return this.updateDescriptionTaskItem()
         }
 
-        this.form.tasks.push(item)
+        return this.add()
       }
     },
-    remove (emit) {
-      const position = emit.action.value.position
+    updateDescriptionTaskItem () {
+      const id = this.form.tasks[this.position].id
+      const finished = this.form.tasks[this.position].finished ? 1 : 0
+      const description = this.form.taskTitle
+      this.fields.modifyIconButton('add')
 
-      if (this.form.id) {
-        return this.deleteItem(position)
+      if (!id) {
+        this.form.tasks[this.position].name = this.form.taskTitle
+        this.resetFields()
+        return
       }
 
-      this.removePropertyForm(position)
+      this.updateTaskItem(id, finished, description)
     },
-    deleteItem (position) {
-      const id = this.form.tasks[position].id
-      this.controllerTaskItemDelete.delete(id)
+    resetFields () {
+      this.position = ''
+      this.form.taskTitle = ''
+    },
+    updateTaskItem (id, finished, description) {
+      this.controllerTaskItemUpdate
+        .update(id, finished, description)
         .then(() => {
-          this.loadTaskItems('Success to delete task item!', 'green', 'thumb_up')
-        })
-    },
-    removePropertyForm (position) {
-      this.form.tasks = this.form.tasks.filter(item => {
-        return item.position !== position
-      })
-    },
-    loadGroups () {
-      this.groupController.findAll()
-        .then(data => {
-          const items = data.map(item => {
-            return { label: item.name, value: item.id }
-          })
-
-          this.fields.addOptions(items)
+          this.resetFields()
+          this.loadTaskItems('Success in updating task item!', 'green', 'thumb_up')
         })
     },
     loadTaskItems (message, color, icon) {
@@ -211,38 +204,80 @@ export default {
         finished: finished
       })
     },
+    add () {
+      const item = this.createObjectItem()
+      this.form.taskTitle = ''
+
+      if (this.form.id) {
+        return this.saveItem(item)
+      }
+
+      this.form.tasks.push(item)
+    },
+    createObjectItem () {
+      const position = this.form.tasks.length
+      return {
+        name: this.form.taskTitle,
+        position: position,
+        finished: false
+      }
+    },
+    saveItem (item) {
+      if (this.form.id) {
+        this.controllerTaskItemCreate
+          .create([item], this.form.id)
+          .then(() => this.loadTaskItems('Success to save task item', 'green', 'thumb_up'))
+      }
+    },
+    finishFullTask () {
+      this.controllerFinish.finish(this.form.id)
+        .then(() => {
+          this.showAlert('Success to finish task!', 'green', 'thumb_up')
+          this.clearForm()
+        })
+    },
+    showSaveButton () {
+      return this.form.tasks.length > 0
+    },
+    remove (emit) {
+      this.resetFields()
+      this.fields.modifyIconButton('add')
+      const position = emit.action.value.position
+
+      if (this.form.id) {
+        return this.deleteItem(position)
+      }
+
+      this.removePropertyForm(position)
+    },
+    deleteItem (position) {
+      const id = this.form.tasks[position].id
+      this.controllerTaskItemDelete.delete(id)
+        .then(() => {
+          this.loadTaskItems('Success to delete task item!', 'green', 'thumb_up')
+        })
+    },
+    removePropertyForm (position) {
+      this.form.tasks = this.form.tasks.filter(item => {
+        return item.position !== position
+      })
+    },
     finishTask (emit) {
       const id = emit.action.value.id
       const finished = emit.action.value.finished ? 0 : 1
       const position = emit.action.value.position
+      const description = emit.action.value.name
 
       if (this.form.id) {
-        return this.updateStatusItem(id, finished)
+        return this.updateTaskItem(id, finished, description)
       }
 
       this.form.tasks[position].finished = finished
     },
-    updateStatusItem (id, finished) {
-      this.controllerTaskItemUpdate
-        .update(id, finished)
-        .then(() => {
-          this.loadTaskItems('Success in updating task item status!', 'green', 'thumb_up')
-        })
-    },
-    findDataById () {
-      this.controllerFind.find(this.id)
-        .then(resp => {
-          this.form.id = resp.id
-          this.form.repeat = true
-          this.form.groupId = resp.groupId
-          this.form.date = resp.date
-          this.form.finalDate = resp.created
-          this.form.title = resp.name
-          resp.tasks.forEach(task => {
-            const position = this.form.tasks.length
-            this.addTaskItem(task.id, task.name, position, task.finished)
-          })
-        })
+    editTask (emit) {
+      this.form.taskTitle = emit.action.value.name
+      this.fields.modifyIconButton('save')
+      this.position = emit.action.value.position
     }
   },
   created () {
