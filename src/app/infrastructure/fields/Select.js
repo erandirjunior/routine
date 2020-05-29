@@ -7,6 +7,7 @@ export default class Select extends Field {
     this.options = []
     this.optionValue = ''
     this.optionLabel = ''
+    this.dense = false
   }
 
   setFieldType () {
@@ -35,6 +36,12 @@ export default class Select extends Field {
 
   setOptionLabel (optionLabel) {
     this.optionLabel = optionLabel
+
+    return this
+  }
+
+  setDense (dense) {
+    this.dense = dense
 
     return this
   }
