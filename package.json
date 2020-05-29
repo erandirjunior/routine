@@ -1,6 +1,6 @@
 {
   "name": "routine",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Quasar app to manager everyday tasks",
   "productName": "Routine",
   "cordovaId": "br.com.erandir.routine",
