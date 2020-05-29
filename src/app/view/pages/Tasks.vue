@@ -1,6 +1,6 @@
 <template>
   <q-page>
-    <header-back></header-back>
+    <header-back to="/"/>
     <q-select
       label="Select a group"
       filled
@@ -22,7 +22,7 @@
       :data="data"
       :buttons="buttons"
       :style-class="styleClass"
-      @action="deleteTask"
+      @action="action"
     />
   </q-page>
 </template>
@@ -30,8 +30,8 @@
 <script>
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
 import TaskControllerBuilder from '../../infrastructure/builder/controller/TaskControllerBuilder'
-import TableComponent from '../../infrastructure/components/table/TableComponent'
-import alert from '../../infrastructure/alert/Alert'
+import TableComponent from '../../infrastructure/view/components/table/TableComponent'
+import alert from '../../infrastructure/components/alert/Alert'
 import HeaderBack from '../components/HeaderBack'
 
 export default {
@@ -44,13 +44,23 @@ export default {
       select: '',
       buttons: [
         {
+          icon: 'edit',
+          color: 'light-blue',
+          action: 'edit',
+          class: 'q-mr-xs',
+          tooltip: {
+            offset: [0, 5],
+            title: 'Edit'
+          }
+        },
+        {
           icon: 'delete',
           color: 'negative',
           action: 'delete',
           class: 'q-mr-xs',
           tooltip: {
             offset: [0, 5],
-            title: 'Excluir'
+            title: 'Delete'
           }
         }
       ],
@@ -90,6 +100,10 @@ export default {
     HeaderBack
   },
   methods: {
+    action (action) {
+      this[action.action](action.id)
+      console.log(action)
+    },
     loadTasks (id) {
       this.controllerFind.findByIdGroup(id)
         .then(resp => {
@@ -102,12 +116,15 @@ export default {
           this.groups = data
         })
     },
-    deleteTask (emit) {
-      this.controllerDelete.delete(emit.id)
+    delete (id) {
+      this.controllerDelete.delete(id)
         .then(() => {
           alert('Success to delete task!', 'positive', 'thumb_up')
           this.loadTasks(this.select)
         })
+    },
+    edit (id) {
+      this.$router.push(`task/${id}`)
     }
   },
   created () {
