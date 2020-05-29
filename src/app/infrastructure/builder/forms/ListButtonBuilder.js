@@ -20,8 +20,19 @@ export default class ListButtonBuilder extends FormBuilder {
       .setTextColor('white')
       .setAlign('center')
       .setRound(true)
-      .setClass('col-xs-3 secondary-bg-color')
+      .setClass('col-xs-2 secondary-bg-color')
       .setClick('finishTask')
+      .setStyle('margin: 8% 10%; font-size: 11px !important')
+      .setSize('xl')
+
+    const btnEdit = new ButtonIcon()
+      .setIcon('edit')
+      .setColor('warning')
+      .setTextColor('white')
+      .setAlign('center')
+      .setRound(true)
+      .setClass('secondary-bg-color')
+      .setClick('editTask')
       .setStyle('margin: 8% 10%; font-size: 11px !important')
       .setSize('xl')
 
@@ -38,6 +49,7 @@ export default class ListButtonBuilder extends FormBuilder {
 
     this.addField(btnFinishedIcon)
     this.addField(btnFinish)
+    this.addField(btnEdit)
     this.addField(btnDeleteTask)
   }
 }

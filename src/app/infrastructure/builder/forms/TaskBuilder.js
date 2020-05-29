@@ -13,6 +13,7 @@ export default class TaskBuilder extends FormBuilder {
   insertFirstFields () {
     const title = new Input()
       .setTitle('Title')
+      .setDense(true)
       .setModel('title')
       .setColor('white')
       .setClass('col-xs-12 secondary-bg-color')
@@ -59,6 +60,7 @@ export default class TaskBuilder extends FormBuilder {
       .setStyle('margin: 0% 5% 0%')
       .setColor('white')
       .setErrorMessage('You should select a option!')
+      .setDense(true)
 
     const taskTitle = new Input()
       .setTitle('Task')
@@ -69,6 +71,7 @@ export default class TaskBuilder extends FormBuilder {
       .setFilled(true)
       .setDarkMode(true)
       .setErrorMessage('You should add at least one task!')
+      .setDense(true)
 
     const addActivity = new ButtonIcon()
       .setIcon('add')
@@ -76,8 +79,8 @@ export default class TaskBuilder extends FormBuilder {
       .setTextColor('white')
       .setAlign('center')
       .setClass('col-xs-3 secondary-bg-color')
-      .setStyle('margin: 6% 0% 0% 0%; font-size: 18px;')
-      .setClick('add')
+      .setStyle('margin: 1% 0%; font-size: 15px;')
+      .setClick('handleTaskItem')
       .setRound(false)
       .setSize('md')
 
@@ -92,5 +95,9 @@ export default class TaskBuilder extends FormBuilder {
 
   addOptions (options) {
     this.fields[4].setOptions(options)
+  }
+
+  modifyIconButton (icon) {
+    this.fields[6].setIcon(icon)
   }
 }

@@ -1,6 +1,7 @@
 import FormBuilder from 'src/app/infrastructure/builder/forms/FormBuilder'
 import Input from 'src/app/infrastructure/fields/Input'
-import ButtonIcon from 'src/app/infrastructure/fields/ButtonIcon'
+import Select from 'src/app/infrastructure/fields/Select'
+import Button from 'src/app/infrastructure/fields/Button'
 
 export default class GroupBuilder extends FormBuilder {
   createFields () {
@@ -8,31 +9,35 @@ export default class GroupBuilder extends FormBuilder {
       .setTitle('Group name')
       .setModel('name')
       .setColor('white')
-      .setClass('col-xs-8 secondary-bg-color')
-      .setStyle('margin: 5% 0% 5% 5%; color: white')
+      .setClass('col-xs-12 secondary-bg-color')
+      .setStyle('margin: 5% 5% 0%; color: white')
       .setSquare(true)
       .setFilled(true)
       .setDarkMode(true)
       .setErrorMessage(`This field can't be empty`)
 
-    const btnSave = new ButtonIcon()
-      .setClass('col-xs-2 secondary-bg-color')
+    const select = new Select()
+      .setTitle('Color')
+      .setModel('color')
+      .setDarkMode(true)
+      .setClass('col-xs-12 secondary-bg-color')
+      .setStyle('margin: 3% 5% 0%')
+      .setColor('white')
+      .setErrorMessage('You should select a option!')
+
+    const btnSave = new Button()
+      .setLabel('SALVAR')
+      .setClass('col-xs-12 secondary-bg-color')
+      .setStyle('margin: 3% 5% 5%; padding: 0% 33%;')
       .setColor('teal-5')
       .setClick('saveData')
-      .setStyle('margin-top: 42%')
-      .setRound(true)
-      .setIcon('save')
-
-    const btnCancel = new ButtonIcon()
-      .setClass('col-xs-2 secondary-bg-color')
-      .setColor('negative')
-      .setClick('enableAddButton')
-      .setStyle('margin-top: 42%')
-      .setRound(true)
-      .setIcon('cancel')
 
     this.addField(groupTitle)
+    this.addField(select)
     this.addField(btnSave)
-    this.addField(btnCancel)
+  }
+
+  addOptions (options) {
+    this.fields[1].setOptions(options)
   }
 }
