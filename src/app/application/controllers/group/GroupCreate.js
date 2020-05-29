@@ -6,6 +6,6 @@ export default class GroupCreate {
   }
 
   create (params) {
-    return this.group.create(params.name)
+    return this.group.create(params.name, params.color)
   }
 }

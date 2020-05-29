@@ -6,6 +6,6 @@ export default class GroupUpdate {
   }
 
   update (params) {
-    return this.group.update(params.id, params.name)
+    return this.group.update(params.id, params.name, params.color)
   }
 }
