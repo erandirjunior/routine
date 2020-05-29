@@ -5,7 +5,7 @@ export default class TaskItemUpdate {
     this.taskItemCreate = new TaskItemUpdateHandler(repository)
   }
 
-  update (id, finished) {
-    return this.taskItemCreate.update(id, finished)
+  update (id, finished, description) {
+    return this.taskItemCreate.update(id, finished, description)
   }
 }

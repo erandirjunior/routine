@@ -3,7 +3,7 @@ export default class TaskItemUpdateHandler {
     this.repository = repository
   }
 
-  update (id, finished) {
-    return this.repository.update(id, finished)
+  update (id, finished, description) {
+    return this.repository.update(id, finished, description)
   }
 }
