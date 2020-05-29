@@ -1,4 +1,4 @@
-import alert from 'src/app/infrastructure/alert/Alert'
+import alert from 'src/app/infrastructure/components/alert/Alert'
 
 export default {
   data () {
@@ -23,7 +23,7 @@ export default {
       if (!this.enableValidationIfHasPropertyWasDefined('form')) {
         this.controllerCreate.create(this.form)
           .then(() => this.afterSuccessCreate())
-          .catch(() => this.afterFailCreate())
+          .catch((error) => this.afterFailCreate(error))
       }
     },
     update () {
@@ -32,14 +32,14 @@ export default {
       if (!this.enableValidationIfHasPropertyWasDefined('form')) {
         this.controllerUpdate.update(this.form)
           .then(() => this.afterSuccessUpdate())
-          .catch(() => this.afterFailUpdate())
+          .catch((error) => this.afterFailUpdate(error))
       }
     },
     delete () {
       this.beforeDelete()
       this.controllerDelete.delete(this.form)
         .then(() => this.afterSuccessDelete())
-        .catch(() => this.afterFailDelete())
+        .catch((error) => this.afterFailDelete(error))
     },
     action (emit) {
       const action = typeof emit.action === 'string' ? emit.action : emit.action.action
@@ -48,26 +48,20 @@ export default {
     beforeCreate () {},
     beforeUpdate () {},
     beforeDelete () {},
-    afterFailCreate () {
-      if (this.failMessageCreate) {
-        return this.showAlert(this.failMessageCreate, 'red', 'thumb_down')
-      }
+    afterFailCreate (error) {
+      const defaultMessage = 'Fail to save data!'
 
-      this.showAlert('Fail to save data!', 'red', 'thumb_down')
+      return this.failMessage(error, this.failMessageCreate, defaultMessage)
     },
-    afterFailUpdate () {
-      if (this.failMessageUpdate) {
-        return this.showAlert(this.failMessageUpdate, 'red', 'thumb_down')
-      }
+    afterFailUpdate (error) {
+      const defaultMessage = 'Fail to update data!'
 
-      this.showAlert('Fail to update data!', 'red', 'thumb_down')
+      return this.failMessage(error, this.failMessageUpdate, defaultMessage)
     },
-    afterFailDelete () {
-      if (this.failMessageDelete) {
-        return this.showAlert(this.failMessageDelete, 'red', 'thumb_down')
-      }
+    afterFailDelete (error) {
+      const defaultMessage = 'Fail to delete data!'
 
-      this.showAlert('Fail to delete data!', 'red', 'thumb_down')
+      return this.failMessage(error, this.failMessageDelete, defaultMessage)
     },
     afterSuccessCreate () {
       if (this.successMessageCreate) {
@@ -89,6 +83,17 @@ export default {
       }
 
       this.showAlert('Success to delete data!', 'green', 'thumb_up')
+    },
+    failMessage (errorMessage, errorMessageAttribute, errorMessageDefault) {
+      if (errorMessage) {
+        return this.showAlert(errorMessage, 'red', 'thumb_down')
+      }
+
+      if (errorMessageAttribute) {
+        return this.showAlert(errorMessageAttribute, 'red', 'thumb_down')
+      }
+
+      this.showAlert(errorMessageDefault, 'red', 'thumb_down')
     },
     showAlert (message, color, icon) {
       alert(message, color, icon)
