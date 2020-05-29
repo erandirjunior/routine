@@ -18,7 +18,7 @@
           flat
           size="md"
           color="white"
-          style=" margin: 3% 0% 3% 4%"
+          style="margin: 3% 0% 3% 4%"
           label="ALL"
           stack
           @click="loadTasks()"
@@ -27,8 +27,8 @@
           flat
           v-for="item in groups" :key="item.id"
           size="md"
-          style=" margin: 3% 2% 3% 4%"
-          :color="colorButtons[item.id]"
+          style="margin: 3% 0%"
+          :color="item.color"
           :label="item.name"
           stack
           @click="loadTasksByIdGroup(item.id)"
@@ -38,9 +38,12 @@
     <q-scroll-area
       class="list-main secondary-bg-color rounded-borders"
     >
-      <list-component
-        :data="tasks"
+      <list-action-component
+        style="margin: 0% 5%"
         section="name"
+        use-index-form="true"
+        :data="tasks"
+        key-components="icon"
         @action="goToTask"
       />
     </q-scroll-area>
@@ -50,9 +53,10 @@
 <script>
 import Database from '../../infrastructure/persistense/Database'
 import Tables from '../../infrastructure/persistense/Tables'
-import ListComponent from '../../infrastructure/components/list/ListComponent'
+import ListActionComponent from '../../infrastructure/view/components/list/ListActionComponent'
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
 import TaskControllerBuilder from '../../infrastructure/builder/controller/TaskControllerBuilder'
+import IconListBuilder from '../../infrastructure/builder/forms/IconListBuilder'
 
 export default {
   name: 'PageIndex',
@@ -60,7 +64,6 @@ export default {
     return {
       colorButtons: [],
       color: '',
-      fab1: true,
       tasks: [],
       groups: [],
       groupController: GroupControllerBuilder.findAll(),
@@ -69,59 +72,50 @@ export default {
     }
   },
   components: {
-    ListComponent
+    ListActionComponent
   },
   methods: {
-    getColor () {
-      const colors = this.filterColor(this.color)
-      const numberColor = Math.floor(Math.random() * (colors.length - 1))
-      this.color = colors[numberColor]
-      return colors[numberColor]
-    },
-    filterColor (removeColor) {
-      const colors = [
-        'red',
-        'blue',
-        'yellow',
-        'green',
-        'grey',
-        'orange',
-        'indigo',
-        'teal',
-        'cyan',
-        'brown'
-      ]
-
-      return colors.filter(item => item !== removeColor)
-    },
     loadGroups () {
       this.groupController.findAll()
         .then(data => {
-          data.forEach((item) => {
-            this.colorButtons[item.id] = this.getColor()
-          })
           this.groups = data
         })
     },
     loadTasks () {
       this.taskFindAllController.findAll()
         .then(data => {
-          this.tasks = data
+          this.loadListItem(data)
         })
     },
     loadTasksByIdGroup (id) {
       this.taskFindByGroupController.findByIdGroup(id)
         .then(data => {
-          this.tasks = data
+          this.loadListItem(data)
         })
+    },
+    loadListItem (data) {
+      this.tasks = []
+
+      data.forEach(item => {
+        let iconListBuilder = new IconListBuilder()
+        iconListBuilder.addIcon(item.color)
+
+        this.tasks.push({
+          created: item.created,
+          name: item.name,
+          id: item.id,
+          icon: iconListBuilder.getFields(),
+          action: 'goToTask'
+        })
+      })
     },
     createTableIfNotExists () {
       const database = Database.getConnection()
       const tables = new Tables(database)
       tables.createTable()
     },
-    goToTask (value) {
-      this.$router.push(`/task/${value.item.id}`)
+    goToTask (item) {
+      this.$router.push(`/task/${item.value.id}`)
     }
   },
   created () {
