@@ -8,7 +8,7 @@
           icon="keyboard_arrow_left"
           color="white"
           stack
-          to="/"
+          :to="to"
         />
       </q-toolbar-title>
     </q-toolbar>
@@ -17,7 +17,10 @@
 
 <script>
 export default {
-  name: 'HeaderBack'
+  name: 'HeaderBack',
+  props: {
+    to: String
+  }
 }
 </script>
 
