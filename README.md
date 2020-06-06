@@ -8,6 +8,9 @@ src
    └── domain # Domain layer
    └── infrastructure # Infrastructure layer
      └── boot # Boot files (app initialization code)
+     └── builder # Factory to create something
+       └── forms # Create forms
+         └── FormBulder.js # All forms should extends this class
      └── components # Helpers and other classes to support application, domain and view layers
      └── i18n # i18n dictionary
      └── store # Vue store to handle vuex
