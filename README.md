@@ -22,6 +22,9 @@ src
  └── router # Vue Router
  </pre>
 
+## Example using this structure
+See [Routine app](https://github.com/erandirjunior/routine), Routine is a mobile app to handle tasks dairly.
+
 ## Install the dependencies
 ```bash
 npm install
