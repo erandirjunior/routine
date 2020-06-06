@@ -23,6 +23,7 @@ export default class Field {
     this.style = ''
     this.bordeless = false
     this.errorMessage = ''
+    this.type = 'input'
   }
 
   setTitle (title) {
@@ -125,6 +126,12 @@ export default class Field {
 
   setErrorMessage (errorMessage) {
     this.errorMessage = errorMessage
+
+    return this
+  }
+
+  setType (type) {
+    this.type = type
 
     return this
   }

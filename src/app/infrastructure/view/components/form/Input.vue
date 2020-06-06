@@ -1,6 +1,7 @@
 <template>
   <q-input
     :ref="field.model"
+    :type="field.type"
     v-model="model"
     :dense="field.dense"
     :label="field.title"
