@@ -15,6 +15,7 @@ export default class Button extends FieldStyle {
     this.fab = false
     this.textColor = ''
     this.round = false
+    this.noCaps = false
   }
 
   setClick (callback) {
@@ -79,6 +80,12 @@ export default class Button extends FieldStyle {
 
   setRound (round) {
     this.round = round
+
+    return this
+  }
+
+  setNoCaps (noCaps) {
+    this.noCaps = noCaps
 
     return this
   }
