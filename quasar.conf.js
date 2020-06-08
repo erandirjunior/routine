@@ -136,7 +136,8 @@ module.exports = function (/* ctx */) {
         'QFab',
         'QFabAction',
         'QSeparator',
-        'QMenu'
+        'QMenu',
+        'QOptionGroup'
       ],
 
       directives: [
