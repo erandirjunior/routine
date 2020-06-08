@@ -99,7 +99,7 @@ export default {
       alert(message, color, icon)
     },
     enableValidationIfHasPropertyWasDefined (property) {
-      if (this.$v.hasOwnProperty(property)) {
+      if (this.$v.property) {
         this.$v.form.$touch()
         return this.$v.form.$error
       }
