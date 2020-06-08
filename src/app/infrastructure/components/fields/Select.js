@@ -1,23 +1,61 @@
-import Field from 'src/app/infrastructure/components/fields/Field'
+import FieldStyle from 'src/app/infrastructure/components/fields/FieldStyle'
 
-export default class Select extends Field {
-  createFields () {
-    super.createFields()
-    this.readonly = () => false
+export default class Select extends FieldStyle {
+  constructor () {
+    super()
+    this.fieldType = 'Select'
+    this.label = ''
+    this.model = ''
+    this.modelIsArray = false
+    this.position = 0
     this.options = []
     this.optionValue = ''
     this.optionLabel = ''
-    this.dense = false
-  }
-
-  setFieldType () {
-    this.fieldType = 'Select'
+    this.multiple = false
+    this.hasCustomOptions = false
+    this.behavior = 'menu'
+    this.hasError = false
+    this.errorMessage = ''
 
     return this
   }
 
-  setReadonly (readonly) {
-    this.readonly = readonly
+  setLabel (label) {
+    this.label = label
+
+    return this
+  }
+
+  setModel (model) {
+    this.model = model
+
+    return this
+  }
+
+  setModelIsArray (value) {
+    this.modelIsArray = value
+
+    return this
+  }
+
+  setPosition (index) {
+    this.position = index
+
+    return this
+  }
+
+  setHasError (hasError) {
+    this.hasError = hasError
+
+    return this
+  }
+
+  getFields () {
+    return this
+  }
+
+  setErrorMessage (errorMessage) {
+    this.errorMessage = errorMessage
 
     return this
   }
@@ -40,8 +78,20 @@ export default class Select extends Field {
     return this
   }
 
-  setDense (dense) {
-    this.dense = dense
+  setMultiple (multiple) {
+    this.multiple = multiple
+
+    return this
+  }
+
+  setHasCustomOptions (hasCustomOptions) {
+    this.hasCustomOptions = hasCustomOptions
+
+    return this
+  }
+
+  setBehavior (behavior) {
+    this.behavior = behavior
 
     return this
   }

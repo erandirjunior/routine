@@ -1,10 +1,12 @@
 import Field from 'src/app/infrastructure/components/fields/Field'
 
-export default class CheckBox extends Field {
+export default class Radio extends Field {
   constructor () {
     super()
-    this.fieldType = 'CheckBox'
+    this.fieldType = 'Radio'
+    this.type = 'radio'
     this.size = ''
+    this.options = []
     this.label = ''
     this.color = ''
     this.class = ''
@@ -52,6 +54,18 @@ export default class CheckBox extends Field {
 
   setLabel (label) {
     this.label = label
+
+    return this
+  }
+
+  setOptions (options) {
+    this.options = options
+
+    return this
+  }
+
+  setType (type) {
+    this.type = type
 
     return this
   }

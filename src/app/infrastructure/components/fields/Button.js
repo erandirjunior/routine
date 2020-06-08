@@ -1,27 +1,20 @@
-import Field from 'src/app/infrastructure/components/fields/Field'
+import FieldStyle from 'src/app/infrastructure/components/fields/FieldStyle'
 
-export default class Button extends Field {
-  createFields () {
-    super.createFields()
+export default class Button extends FieldStyle {
+  constructor () {
+    super()
+    this.fieldType = 'Button'
     this.click = ''
     this.label = ''
     this.align = 'center'
     this.size = ''
-    this.outline = false
     this.flat = false
     this.unelevated = false
-    this.rounded = false
     this.push = false
     this.pussy = false
     this.fab = false
     this.textColor = ''
     this.round = false
-  }
-
-  setFieldType () {
-    this.fieldType = 'Button'
-
-    return this
   }
 
   setClick (callback) {
@@ -48,12 +41,6 @@ export default class Button extends Field {
     return this
   }
 
-  setOutline (outline) {
-    this.outline = outline
-
-    return this
-  }
-
   setFlat (flat) {
     this.flat = flat
 
@@ -62,12 +49,6 @@ export default class Button extends Field {
 
   setUnelevated (unelevated) {
     this.unelevated = unelevated
-
-    return this
-  }
-
-  setRounded (rounded) {
-    this.rounded = rounded
 
     return this
   }

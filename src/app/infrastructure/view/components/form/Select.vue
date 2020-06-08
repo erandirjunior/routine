@@ -1,24 +1,48 @@
 <template>
   <div>
     <q-select
-      filled
-      :label="field.title"
+      :label="field.label"
+      v-model="model"
+      :filled="field.filled"
+      :outlined="field.outlined"
+      :square="field.square"
+      :standout="field.standout"
+      :rounded="field.rounded"
+      :borderless="field.borderless"
+      :dense="field.dense"
       :color="field.color"
-      :dark="field.darkMode"
-      :class="field.inputClass"
       :disable="field.disable(field, form)"
       :readonly="field.readonly(field, form)"
-      v-model="model"
+      :dark="field.darkMode"
+      :clearable="field.clearable"
+      :class="field.inputClass"
       :style="field.style"
+      :multiple="field.multiple"
       :options="field.options"
       :option-value="field.optionValue"
       :option-label="field.optionLabel"
-      :dense="field.dense"
       emit-value
       map-options
+      v-if="field.showInput(field, form)"
       :error="error"
       :error-message="field.errorMessage"
-    />
+      :behavior="field.behavior"
+    >
+      <template v-slot:option="scope" v-if="field.hasCustomOptions">
+        <q-item
+          v-bind="scope.itemProps"
+          v-on="scope.itemEvents"
+        >
+          <q-item-section avatar>
+            <q-icon :name="scope.opt.icon" />
+          </q-item-section>
+          <q-item-section>
+            <q-item-label v-html="scope.opt.label" />
+            <q-item-label caption>{{ scope.opt.description }}</q-item-label>
+          </q-item-section>
+        </q-item>
+      </template>
+    </q-select>
   </div>
 </template>
 

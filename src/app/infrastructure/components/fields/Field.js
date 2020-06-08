@@ -1,93 +1,13 @@
 export default class Field {
   constructor () {
-    this.setFieldType()
-    this.createFields()
-
-    return this
-  }
-
-  createFields () {
-    this.title = ''
     this.model = ''
-    this.callback = ''
-    this.hasError = false
-    this.disable = () => false
-    this.show = () => true
-    this.input = () => ''
-    this.class = ''
-    this.inputClass = ''
-    this.darkMode = false
-    this.color = ''
     this.modelIsArray = false
     this.position = 0
-    this.style = ''
-    this.bordeless = false
     this.errorMessage = ''
-    this.type = 'input'
-  }
-
-  setTitle (title) {
-    this.title = title
-
-    return this
-  }
-
-  setModel (model) {
-    this.model = model
-
-    return this
-  }
-
-  setCallback (callback) {
-    this.callback = callback
-
-    return this
-  }
-
-  setHasError (hasError) {
-    this.hasError = hasError
-
-    return this
-  }
-
-  setDisable (disable) {
-    this.disable = disable
-
-    return this
-  }
-
-  setDarkMode (mode) {
-    this.darkMode = mode
-
-    return this
-  }
-
-  setColor (color) {
-    this.color = color
-
-    return this
-  }
-
-  setShow (callback) {
-    this.show = callback
-
-    return this
-  }
-
-  setInput (callback) {
-    this.input = callback
-
-    return this
-  }
-
-  setClass (classStyle) {
-    this.class = classStyle
-
-    return this
-  }
-
-  setInputClass (classStyle) {
-    this.inputClass = classStyle
+    this.hasError = false
+    this.fieldType = ''
+    this.show = () => true
+    this.showInput = () => true
 
     return this
   }
@@ -96,8 +16,10 @@ export default class Field {
     return this
   }
 
-  setFieldType () {
-    throw new Error('You should set field type')
+  setModel (model) {
+    this.model = model
+
+    return this
   }
 
   setModelIsArray (value) {
@@ -112,14 +34,8 @@ export default class Field {
     return this
   }
 
-  setStyle (style) {
-    this.style = style
-
-    return this
-  }
-
-  setBordeless (bordeless) {
-    this.bordeless = bordeless
+  setHasError (hasError) {
+    this.hasError = hasError
 
     return this
   }
@@ -130,8 +46,14 @@ export default class Field {
     return this
   }
 
-  setType (type) {
-    this.type = type
+  setShow (callback) {
+    this.show = callback
+
+    return this
+  }
+
+  setShowInput (callback) {
+    this.showInput = callback
 
     return this
   }

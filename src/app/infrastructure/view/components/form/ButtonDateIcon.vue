@@ -13,7 +13,7 @@
     :class="field.inputClass"
     :style="field.style"
     :disable="field.disable(field, form)"
-    v-if="field.show(field, form)"
+    v-if="field.showInput(field, form)"
   >
     <q-popup-proxy transition-show="scale" transition-hide="scale">
       <q-date v-model="model" v-close-popup :mask="field.mask"/>

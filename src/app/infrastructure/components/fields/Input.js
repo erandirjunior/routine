@@ -1,82 +1,159 @@
-import Field from 'src/app/infrastructure/components/fields/Field'
+import FieldStyle from 'src/app/infrastructure/components/fields/FieldStyle'
 
-export default class Input extends Field {
-  createFields () {
-    super.createFields()
-    this.focus = ''
-    this.blur = ''
-    this.dense = false
-    this.filled = false
-    this.outlined = false
-    this.standout = false
-    this.bordeless = false
-    this.rounded = false
-    this.square = false
-    this.readonly = () => false
-  }
-
-  setFieldType () {
+export default class Input extends FieldStyle {
+  constructor () {
+    super()
     this.fieldType = 'Input'
+    this.label = ''
+    this.model = ''
+    this.type = 'input'
+    this.modelIsArray = false
+    this.position = 0
+    this.hasPrepend = false
+    this.hasAppend = false
+    this.hasHint = false
+    this.prependIcon = ''
+    this.appendIcon = ''
+    this.textHint = ''
+    this.hasAfterIcon = false
+    this.hasBeforeIcon = false
+    this.afterIcon = ''
+    this.beforeIcon = ''
+    this.autogrow = false
+    this.suffix = ''
+    this.prefix = ''
+    this.hasError = false
+    this.errorMessage = ''
 
     return this
   }
 
-  setFocus (callback) {
-    this.focus = callback
+  setLabel (label) {
+    this.label = label
 
     return this
   }
 
-  setBlur (callback) {
-    this.blur = callback
+  setModel (model) {
+    this.model = model
 
     return this
   }
 
-  setFilled (filled) {
-    this.filled = filled
+  setType (type) {
+    this.type = type
 
     return this
   }
 
-  setOutlined (outlined) {
-    this.outlined = outlined
+  setModelIsArray (value) {
+    this.modelIsArray = value
 
     return this
   }
 
-  setStandout (standout) {
-    this.standout = standout
+  setPosition (index) {
+    this.position = index
 
     return this
   }
 
-  setBordeless (bordeless) {
-    this.bordeless = bordeless
+  setHasPrepend (hasPrepend) {
+    this.hasPrepend = hasPrepend
 
     return this
   }
 
-  setRounded (rounded) {
-    this.rounded = rounded
+  setHasAppend (hasAppend) {
+    this.hasAppend = hasAppend
 
     return this
   }
 
-  setSquare (square) {
-    this.square = square
+  setHasHint (hasHint) {
+    this.hasHint = hasHint
 
     return this
   }
 
-  setReadonly (readonly) {
-    this.readonly = readonly
+  setPrependIcon (prependIcon) {
+    this.prependIcon = prependIcon
 
     return this
   }
 
-  setDense (dense) {
-    this.dense = dense
+  setAppendIcon (appendIcon) {
+    this.appendIcon = appendIcon
+
+    return this
+  }
+
+  setTextHint (textHint) {
+    this.textHint = textHint
+
+    return this
+  }
+
+  setHasAfterIcon (afterIcon) {
+    this.hasAfterIcon = afterIcon
+
+    return this
+  }
+
+  setHasBeforeIcon (beforeIcon) {
+    this.hasBeforeIcon = beforeIcon
+
+    return this
+  }
+
+  setAfterIcon (afterIcon) {
+    this.afterIcon = afterIcon
+
+    return this
+  }
+
+  setBeforeIcon (beforeIcon) {
+    this.beforeIcon = beforeIcon
+
+    return this
+  }
+
+  setAutogrow (autogrow) {
+    this.autogrow = autogrow
+
+    return this
+  }
+
+  setSuffix (suffix) {
+    this.suffix = suffix
+
+    return this
+  }
+
+  setPrefix (prefix) {
+    this.prefix = prefix
+
+    return this
+  }
+
+  setHasError (hasError) {
+    this.hasError = hasError
+
+    return this
+  }
+
+  setColor (color) {
+    this.color = color
+
+    return this
+  }
+
+  getFields () {
+    return this
+  }
+
+  setErrorMessage (errorMessage) {
+    this.errorMessage = errorMessage
 
     return this
   }

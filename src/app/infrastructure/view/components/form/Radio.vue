@@ -1,13 +1,13 @@
 <template>
-  <q-checkbox
+  <q-option-group
     v-model="model"
-    :label="field.label"
+    :options="field.options"
     :color="field.color"
     :dark="field.darkMode"
     :class="field.inputClass"
     :style="field.style"
     :size="field.size"
-    keep-color
+    :type="field.type"
     :error="error"
     :error-message="field.errorMessage"
     :disable="field.disable(field, form)"
@@ -19,7 +19,7 @@
 import formComponentMixin from '../../mixins/formComponentMixin'
 
 export default {
-  name: 'CheckBox',
+  name: 'Radio',
   mixins: [
     formComponentMixin
   ]

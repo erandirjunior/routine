@@ -1,15 +1,10 @@
 import Button from 'src/app/infrastructure/components/fields/Button'
 
 export default class ButtonIcon extends Button {
-  createFields () {
-    super.createFields()
-    this.icon = ''
-  }
-
-  setFieldType () {
+  constructor () {
+    super()
     this.fieldType = 'ButtonIcon'
-
-    return this
+    this.icon = ''
   }
 
   setIcon (icon) {

@@ -1,26 +1,8 @@
-import Field from 'src/app/infrastructure/components/fields/Field'
+import Input from 'src/app/infrastructure/components/fields/Input'
 
-export default class Textarea extends Field {
-  createFields () {
-    super.createFields()
-    this.focus = () => ''
-    this.blur = () => ''
-  }
-
+export default class Textarea extends Input {
   setFieldType () {
     this.fieldType = 'Textarea'
-
-    return this
-  }
-
-  setFocus (callback) {
-    this.focus = callback
-
-    return this
-  }
-
-  setBlur (callback) {
-    this.blur = callback
 
     return this
   }
