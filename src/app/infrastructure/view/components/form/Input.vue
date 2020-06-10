@@ -28,8 +28,12 @@
       <q-icon :name="field.prependIcon" />
     </template>
 
-    <template v-slot:append v-if="field.hasAppend">
-      <q-icon :name="field.appendIcon" />
+    <template v-slot:append v-if="checkIfHasAppend()">
+      <q-icon
+        :name="getAppendIcon()"
+        class="cursor-pointer"
+        @click="enableVisibilityPassword()"
+      />
     </template>
 
     <template v-slot:hint v-if="field.hasHint">
@@ -42,14 +46,6 @@
 
     <template v-slot:before v-if="field.hasBeforeIcon">
       <q-btn round dense flat :icon="field.beforeIcon" />
-    </template>
-
-    <template v-slot:append v-if="field.type === 'password'">
-      <q-icon
-        :name="visible ? 'visibility_off' : 'visibility'"
-        class="cursor-pointer"
-        @click="visible = !visible"
-      />
     </template>
   </q-input>
 </template>
@@ -68,6 +64,24 @@ export default {
     }
   },
   methods: {
+    checkIfTypeIsPassword () {
+      return this.field.type === 'password'
+    },
+    enableVisibilityPassword () {
+      if (this.checkIfTypeIsPassword()) {
+        this.visible = !this.visible
+      }
+    },
+    getAppendIcon () {
+      if (this.checkIfTypeIsPassword()) {
+        return this.visible ? 'visibility_off' : 'visibility'
+      }
+
+      return this.field.appendIcon
+    },
+    checkIfHasAppend () {
+      return this.checkIfTypeIsPassword() || this.field.hasAppend
+    },
     getType () {
       if (this.field.type === 'password') {
         return this.visible ? 'password' : 'text'
