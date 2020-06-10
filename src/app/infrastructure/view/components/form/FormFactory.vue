@@ -1,5 +1,5 @@
 <template>
-  <div class="row q-col-gutter-sm">
+  <div :class="classFactory">
     <div
       v-for="(field, index) in getFields()"
       :key="index"
@@ -42,6 +42,10 @@ export default {
       type: Object,
       required: false,
       default: () => {}
+    },
+    classFactory: {
+      type: String,
+      default: () => 'row'
     }
   },
   components: {

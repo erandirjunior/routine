@@ -1,8 +1,9 @@
 <template>
   <q-page class="q-pa-xl">
     <form-factory
-    :form="form"
-    :fields="fields"
+      class-factory="row q-col-gutter-sm"
+      :form="form"
+      :fields="fields"
     />
   </q-page>
 </template>
