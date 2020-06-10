@@ -8,7 +8,7 @@ export default class FieldStyle extends Field {
     this.standout = false
     this.rounded = false
     this.square = false
-    this.bordeless = false
+    this.borderless = false
     this.dense = false
     this.darkMode = false
     this.clearable = false
@@ -50,8 +50,8 @@ export default class FieldStyle extends Field {
     return this
   }
 
-  setBordeless (bordeless) {
-    this.bordeless = bordeless
+  setBorderless (borderless) {
+    this.borderless = borderless
 
     return this
   }
