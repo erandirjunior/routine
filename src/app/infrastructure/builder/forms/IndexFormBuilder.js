@@ -25,24 +25,37 @@ export default class IndexFormBuilder extends FormBuilder {
         label: 'Google',
         value: 1,
         description: 'Search engine',
-        icon: 'mail'
+        beforeIcon: 'mail',
+        beforeIconColor: 'teal',
+        afterIcon: 'mail',
+        afterIconColor: 'red'
       },
       {
         label: 'Facebook',
         value: 2,
         description: 'Social media',
-        icon: 'bluetooth'
+        beforeIcon: 'bluetooth',
+        beforeIconColor: 'blue-10',
+        afterIcon: 'bluetooth',
+        afterIconColor: 'yellow'
       },
       {
         label: 'Twitter',
         value: 3,
         description: 'Quick updates',
-        icon: 'map'
+        beforeIcon: 'map',
+        beforeIconColor: 'blue-5',
+        afterIcon: 'map',
+        afterIconColor: 'green'
       },
       {
         label: 'Apple',
         value: 4,
         description: 'iStuff',
+        beforeIcon: 'golf_course',
+        beforeIconColor: 'black',
+        afterIcon: 'golf_course',
+        afterIconColor: 'grey',
         icon: 'golf_course'
       }
     ]
@@ -76,7 +89,7 @@ export default class IndexFormBuilder extends FormBuilder {
         .setLabel('Borderless')
         .setModel('text')
         .setClass('col-xs-3')
-        .setBordeless(true),
+        .setBorderless(true),
       new Input()
         .setLabel('Rounded Filled')
         .setModel('text')
@@ -281,19 +294,21 @@ export default class IndexFormBuilder extends FormBuilder {
         .setLabel('Bordeless')
         .setModel('select')
         .setOptions(simpleList)
-        .setBordeless(true)
-        .setClass('col-xs-3'),
+        .setClass('col-xs-3')
+        .setBorderless(true),
       new Select()
         .setLabel('Rounded')
         .setModel('select')
         .setOptions(simpleList)
         .setRounded(true)
+        .setStandout(true)
         .setClass('col-xs-3'),
       new Select()
         .setLabel('Square')
         .setModel('select')
         .setOptions(simpleList)
         .setSquare(true)
+        .setOutlined(true)
         .setClass('col-xs-3'),
       new Select()
         .setLabel('Clearable')
@@ -323,6 +338,11 @@ export default class IndexFormBuilder extends FormBuilder {
         .setOptions(objectList)
         .setSquare(true)
         .setHasCustomOptions(true)
+        .setHasBeforeIcon(true)
+        .setHasContent(true)
+        .setHasLabel(true)
+        .setHasCaption(true)
+        .setHasAfterIcon(true)
         .setClass('col-xs-3'),
       new Select()
         .setLabel('Behavior')
