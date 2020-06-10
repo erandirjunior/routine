@@ -14,6 +14,11 @@ export default class Select extends FieldStyle {
     this.multiple = false
     this.hasCustomOptions = false
     this.behavior = 'menu'
+    this.hasBeforeIcon = false
+    this.hasAfterIcon = false
+    this.hasContent = false
+    this.hasLabel = false
+    this.hasCaption = false
     this.hasError = false
     this.errorMessage = ''
 
@@ -92,6 +97,36 @@ export default class Select extends FieldStyle {
 
   setBehavior (behavior) {
     this.behavior = behavior
+
+    return this
+  }
+
+  setHasBeforeIcon (hasBeforeIcon) {
+    this.hasBeforeIcon = hasBeforeIcon
+
+    return this
+  }
+
+  setHasAfterIcon (hasAfterIcon) {
+    this.hasAfterIcon = hasAfterIcon
+
+    return this
+  }
+
+  setHasContent (hasContent) {
+    this.hasContent = hasContent
+
+    return this
+  }
+
+  setHasLabel (hasLabel) {
+    this.hasLabel = hasLabel
+
+    return this
+  }
+
+  setHasCaption (hasCaption) {
+    this.hasCaption = hasCaption
 
     return this
   }
