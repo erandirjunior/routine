@@ -7,7 +7,7 @@
 // https://quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
 
-module.exports = function (/* ctx */) {
+module.exports = function (ctx) {
   return {
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
     supportIE: false,
@@ -23,7 +23,8 @@ module.exports = function (/* ctx */) {
     // https://quasar.dev/quasar-cli/cli-documentation/boot-files
     boot: [
       '../app/infrastructure/boot/i18n',
-      '../app/infrastructure/boot/vuelidate'
+      '../app/infrastructure/boot/vuelidate',
+      '../app/infrastructure/boot/axios'
     ],
 
     // https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-css
@@ -72,7 +73,14 @@ module.exports = function (/* ctx */) {
           loader: 'eslint-loader',
           exclude: /node_modules/
         })
-      }
+      },
+      env: ctx.dev
+        ? {
+          API: JSON.stringify('')
+        }
+        : {
+          API: JSON.stringify('')
+        }
     },
 
     // Full list of options: https://quasar.dev/quasar-cli/quasar-conf-js#Property%3A-devServer
