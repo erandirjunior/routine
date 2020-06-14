@@ -6,8 +6,11 @@ export default function dateHandler () {
     addDays (day) {
       this.date = date.addToDate(this.date, { days: day })
     },
-    getDate () {
-      return date.formatDate(this.date, 'YYYY-MM-DD')
+    removeDays (day) {
+      this.date = date.subtractFromDate(this.date, { days: day })
+    },
+    getDate (format = 'YYYY-MM-DD', translate = {}) {
+      return date.formatDate(this.date, format, translate)
     }
   }
 }
