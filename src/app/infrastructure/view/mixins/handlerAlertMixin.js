@@ -1,10 +1,6 @@
-import alert from 'src/app/infrastructure/components/alert/Alert'
-import actionMixin from 'src/app/infrastructure/view/mixins/handlerActionMixin'
+import alert from 'src/app/infrastructure/components/alert/alert'
 
 export default {
-  mixins: [
-    actionMixin
-  ],
   methods: {
     showAlert (message, color, icon) {
       alert(message, color, icon)
