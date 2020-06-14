@@ -10,15 +10,15 @@
     </q-page-sticky>
     <q-scroll-area
       horizontal
-      style="width: 100%;"
-      class="secondary-bg-color rounded-borders"
+      style="height: 5em; width: 100%;"
+      class="secondary-bg-color"
     >
       <div class="row no-wrap">
         <q-btn
           flat
           size="md"
           color="white"
-          style="margin: 3% 0% 3% 4%"
+          style="margin: 0% 0% 0% 2%"
           label="ALL"
           stack
           @click="loadTasks()"
@@ -27,7 +27,7 @@
           flat
           v-for="item in groups" :key="item.id"
           size="md"
-          style="margin: 3% 0%"
+          style="margin: 2% 0% 0%"
           :color="item.color"
           :label="item.name"
           stack
@@ -45,6 +45,8 @@
         :data="tasks"
         key-components="icon"
         @action="goToTask"
+        dark="true"
+        dense="true"
       />
     </q-scroll-area>
   </q-page>
@@ -97,7 +99,7 @@ export default {
       this.tasks = []
 
       data.forEach(item => {
-        let iconListBuilder = new IconListBuilder()
+        const iconListBuilder = new IconListBuilder()
         iconListBuilder.addIcon(item.color)
 
         this.tasks.push({

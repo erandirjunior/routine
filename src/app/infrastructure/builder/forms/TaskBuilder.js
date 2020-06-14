@@ -1,9 +1,9 @@
 import FormBuilder from 'src/app/infrastructure/builder/forms/FormBuilder'
-import Input from 'src/app/infrastructure/fields/Input'
-import ButtonIcon from 'src/app/infrastructure/fields/ButtonIcon'
-import CheckBox from 'src/app/infrastructure/fields/CheckBox'
-import Select from 'src/app/infrastructure/fields/Select'
-import ButtonDateIcon from 'src/app/infrastructure/fields/ButtonDateIcon'
+import Input from 'src/app/infrastructure/components/fields/Input'
+import ButtonIcon from 'src/app/infrastructure/components/fields/ButtonIcon'
+import CheckBox from 'src/app/infrastructure/components/fields/CheckBox'
+import Select from 'src/app/infrastructure/components/fields/Select'
+import ButtonDateIcon from 'src/app/infrastructure/components/fields/ButtonDateIcon'
 
 export default class TaskBuilder extends FormBuilder {
   createFields () {
@@ -12,7 +12,7 @@ export default class TaskBuilder extends FormBuilder {
 
   insertFirstFields () {
     const title = new Input()
-      .setTitle('Title')
+      .setLabel('Title')
       .setDense(true)
       .setModel('title')
       .setColor('white')
@@ -24,11 +24,12 @@ export default class TaskBuilder extends FormBuilder {
 
     const btnCheck = new CheckBox()
       .setModel('repeat')
+      .setSize('xl')
       .setColor('teal-5')
       .setClass('col-xs-6 secondary-bg-color')
       .setStyle('color: white; margin: 0% 0% 0% 0%')
       .setDarkMode(false)
-      .setTitle('Repeat task until')
+      .setLabel('Repeat task until')
       .setDisable((field, form) => !!form.id)
 
     const finalDate = new ButtonDateIcon()
@@ -44,34 +45,40 @@ export default class TaskBuilder extends FormBuilder {
       .setModel('finalDate')
       .setColor('white')
       .setClass('col-xs-5 secondary-bg-color')
-      .setStyle('color: white; margin: 5% 15% 0% 14%')
+      .setStyle('color: white; margin: 5% 12% 0% 14%')
       .setFilled(true)
       .setDarkMode(true)
       .setDisable(() => true)
       .setDense(true)
 
     const select = new Select()
-      .setTitle('Group')
+      .setLabel('Group')
       .setModel('groupId')
+      .setFilled(true)
       .setOptionValue('value')
       .setOptionLabel('label')
+      .setHasCustomOptions(true)
+      .setHasContent(true)
+      .setHasLabel(true)
+      .setHasAfterIcon(true)
       .setDarkMode(true)
       .setClass('col-xs-12 secondary-bg-color')
       .setStyle('margin: 0% 5% 0%')
       .setColor('white')
-      .setErrorMessage('You should select a option!')
+      .setErrorMessage('You should select an option!')
       .setDense(true)
 
     const taskTitle = new Input()
-      .setTitle('Task')
+      .setLabel('Task')
       .setModel('taskTitle')
       .setColor('white')
       .setClass('col-xs-9 secondary-bg-color')
-      .setStyle('color: white; margin: 0% 0% 0% 7%')
+      .setStyle('color: white; margin: 2% 0% 0% 7%')
       .setFilled(true)
       .setDarkMode(true)
       .setErrorMessage('You should add at least one task!')
       .setDense(true)
+      .setAutogrow(true)
 
     const addActivity = new ButtonIcon()
       .setIcon('add')
@@ -79,7 +86,7 @@ export default class TaskBuilder extends FormBuilder {
       .setTextColor('white')
       .setAlign('center')
       .setClass('col-xs-3 secondary-bg-color')
-      .setStyle('margin: 1% 0%; font-size: 15px;')
+      .setStyle('margin: 8% 0% 0% 15%; font-size: 15px;')
       .setClick('handleTaskItem')
       .setRound(false)
       .setSize('md')

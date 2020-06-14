@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Quasar App (Routine)
 
 > Route is a Quasar Framework app, developed to practice Vue, Quasar and Mobile skills.

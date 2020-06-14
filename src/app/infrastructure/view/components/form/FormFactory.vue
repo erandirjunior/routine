@@ -1,7 +1,7 @@
 <template>
-  <div class="row q-col-gutter-sm">
+  <div :class="classFactory">
     <div
-      v-for="(field, index) in fields.getFields()"
+      v-for="(field, index) in getFields()"
       :key="index"
       :class="field.class"
     >
@@ -25,6 +25,7 @@ import ButtonIcon from './ButtonIcon'
 import Select from './Select'
 import DateTime from './DateTime'
 import ButtonDateIcon from './ButtonDateIcon'
+import Radio from './Radio'
 
 export default {
   name: 'FormFactory',
@@ -41,6 +42,10 @@ export default {
       type: Object,
       required: false,
       default: () => {}
+    },
+    classFactory: {
+      type: String,
+      default: () => 'row'
     }
   },
   components: {
@@ -51,11 +56,19 @@ export default {
     ButtonIcon,
     Select,
     DateTime,
-    ButtonDateIcon
+    ButtonDateIcon,
+    Radio
   },
   methods: {
     formAction (action) {
       this.$emit('formAction', { action: action, value: this.form })
+    },
+    getFields () {
+      return this.fields
+        .getFields()
+        .filter(field => {
+          return field.show(field, this.form)
+        })
     }
   }
 }

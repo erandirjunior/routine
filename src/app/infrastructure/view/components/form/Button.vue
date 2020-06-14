@@ -10,6 +10,7 @@
     :color="field.color"
     :label="field.label"
     :align="field.align"
+    :no-caps="field.noCaps"
     :round="field.round"
     :class="field.inputClass"
     :style="field.style"

@@ -3,7 +3,7 @@
     <q-list dark separator>
       <q-item v-for="(item, key) in data" :key="key">
         <q-item-section @click="item.action ? action(item.action, item) : ''">
-          <q-item-label>{{ item[section] }}</q-item-label>
+          <q-input :dark="!!dark" :dense="!!dense" :value="item[section]" autogrow readonly borderless />
         </q-item-section>
         <q-item-section side v-for="(button, index) in getComponents(key)" :key="index">
           <component
@@ -47,6 +47,14 @@ export default {
       default: () => ''
     },
     keyComponents: {
+      type: String,
+      default: () => ''
+    },
+    dark: {
+      type: String,
+      default: () => ''
+    },
+    dense: {
       type: String,
       default: () => ''
     }
