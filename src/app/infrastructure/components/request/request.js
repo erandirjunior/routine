@@ -14,4 +14,4 @@ const del = (url, data = {}, config = {}) => {
   return axios.delete(`${process.env.API}/${url}`, data, config)
 }
 
-export default { get, post, put, del }
+export { get, post, put, del }
