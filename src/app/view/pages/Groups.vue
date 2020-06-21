@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import handlerFormMixin from '../../infrastructure/view/mixins/handlerFormMixin'
+import handlerDeleteDataMixin from '../../infrastructure/view/mixins/handlerDeleteDataMixin'
 import TableComponent from '../../infrastructure/view/components/table/TableComponent'
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
-import HeaderBack from '../components/HeaderBack'
+import HeaderBack from '../components/general/HeaderBack'
 
 export default {
   name: 'Groups',
@@ -79,7 +79,7 @@ export default {
     }
   },
   mixins: [
-    handlerFormMixin
+    handlerDeleteDataMixin
   ],
   components: {
     TableComponent,

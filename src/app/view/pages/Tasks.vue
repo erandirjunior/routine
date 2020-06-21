@@ -1,10 +1,15 @@
 <template>
   <q-page>
     <header-back to="/"/>
+    <form-factory
+      :fields="fields"
+      :form="form"
+      @formAction="action"/>
     <q-select
       label="Select a group"
       filled
       dark
+      behavior="menu"
       standout
       class="secondary-bg-color"
       style="margin-bottom: 5%"
@@ -31,17 +36,18 @@
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
 import TaskControllerBuilder from '../../infrastructure/builder/controller/TaskControllerBuilder'
 import TableComponent from '../../infrastructure/view/components/table/TableComponent'
-import alert from '../../infrastructure/components/alert/Alert'
-import HeaderBack from '../components/HeaderBack'
+import alert from '../../infrastructure/components/alert/alert'
+import HeaderBack from '../components/general/HeaderBack'
+import TaskSelectBuilder from 'src/app/infrastructure/builder/forms/TaskSelectBuilder'
 
 export default {
   name: 'Tasks',
   data () {
     return {
+      fields: new TaskSelectBuilder(),
       controllerFindAll: GroupControllerBuilder.findAll(),
       controllerDelete: TaskControllerBuilder.delete(),
       controllerFind: TaskControllerBuilder.findAllByGroup(),
-      select: '',
       buttons: [
         {
           icon: 'edit',
@@ -91,7 +97,8 @@ export default {
       show: false,
       form: {
         name: '',
-        id: ''
+        id: '',
+        select: ''
       }
     }
   },

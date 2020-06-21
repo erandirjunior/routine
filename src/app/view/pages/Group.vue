@@ -11,12 +11,13 @@
 </template>
 
 <script>
-import handlerFormMixin from '../../infrastructure/view/mixins/handlerFormMixin'
+import handlerCreateDataMixin from '../../infrastructure/view/mixins/handlerCreateDataMixin'
+import handlerUpdateDataMixin from '../../infrastructure/view/mixins/handlerUpdateDataMixin'
 import GroupBuilder from '../../infrastructure/builder/forms/GroupBuilder'
 import FormFactory from '../../infrastructure/view/components/form/FormFactory'
 import { required } from 'vuelidate/lib/validators'
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
-import HeaderBack from '../components/HeaderBack'
+import HeaderBack from '../components/general/HeaderBack'
 
 export default {
   name: 'Group',
@@ -34,15 +35,60 @@ export default {
         id: ''
       },
       colors: [
-        'red',
-        'blue',
-        'yellow',
-        'green',
-        'orange',
-        'teal',
-        'cyan',
-        'brown',
-        'pink'
+        {
+          label: 'red',
+          value: 'red',
+          afterIcon: 'label',
+          afterIconColor: 'red'
+        },
+        {
+          label: 'blue',
+          value: 'blue',
+          afterIcon: 'label',
+          afterIconColor: 'blue'
+        },
+        {
+          label: 'yellow',
+          value: 'yellow',
+          afterIcon: 'label',
+          afterIconColor: 'yellow'
+        },
+        {
+          label: 'green',
+          value: 'green',
+          afterIcon: 'label',
+          afterIconColor: 'green'
+        },
+        {
+          label: 'orange',
+          value: 'orange',
+          afterIcon: 'label',
+          afterIconColor: 'orange'
+        },
+        {
+          label: 'teal',
+          value: 'teal',
+          afterIcon: 'label',
+          afterIconColor: 'teal'
+        },
+        {
+          label: 'cyan',
+          value: 'cyan',
+          afterIcon: 'label',
+          afterIconColor: 'cyan'
+        },
+        {
+          label: 'brown',
+          value: 'brown',
+          afterIcon: 'label',
+          afterIconColor: 'brown'
+        },
+        {
+          label: 'pink',
+          value: 'pink',
+          afterIcon: 'label',
+          afterIconColor: 'pink'
+        }
       ]
     }
   },
@@ -52,7 +98,8 @@ export default {
     }
   },
   mixins: [
-    handlerFormMixin
+    handlerCreateDataMixin,
+    handlerUpdateDataMixin
   ],
   components: {
     FormFactory,

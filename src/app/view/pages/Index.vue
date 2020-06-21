@@ -8,21 +8,8 @@
         to="/task"
       />
     </q-page-sticky>
-    <q-scroll-area
-      horizontal
-      style="height: 5em; width: 100%;"
-      class="secondary-bg-color"
-    >
+    <div class="scrollmenu secondary-bg-color">
       <div class="row no-wrap">
-        <q-btn
-          flat
-          size="md"
-          color="white"
-          style="margin: 0% 0% 0% 2%"
-          label="ALL"
-          stack
-          @click="loadTasks()"
-        />
         <q-btn
           flat
           v-for="item in groups" :key="item.id"
@@ -31,15 +18,15 @@
           :color="item.color"
           :label="item.name"
           stack
-          @click="loadTasksByIdGroup(item.id)"
+          @click="loadTasks(item.id)"
         />
       </div>
-    </q-scroll-area>
+    </div>
     <q-scroll-area
       class="list-main secondary-bg-color rounded-borders"
     >
       <list-action-component
-        style="margin: 0% 5%"
+        style="margin: 0% 4%"
         section="name"
         use-index-form="true"
         :data="tasks"
@@ -64,6 +51,7 @@ export default {
   name: 'PageIndex',
   data () {
     return {
+      visible: false,
       colorButtons: [],
       color: '',
       tasks: [],
@@ -81,13 +69,24 @@ export default {
       this.groupController.findAll()
         .then(data => {
           this.groups = data
+          this.groups.unshift({
+            color: 'white',
+            name: 'ALL'
+          })
         })
     },
-    loadTasks () {
+    loadAllTasks () {
       this.taskFindAllController.findAll()
         .then(data => {
           this.loadListItem(data)
         })
+    },
+    loadTasks (id = null) {
+      if (id) {
+        return this.loadTasksByIdGroup(id)
+      }
+
+      this.loadAllTasks()
     },
     loadTasksByIdGroup (id) {
       this.taskFindByGroupController.findByIdGroup(id)
@@ -134,5 +133,11 @@ export default {
     margin-top: 15%;
     border-radius: 0% 2% 2% 0%;
     height: 24em
+  }
+  div.scrollmenu {
+    margin: 0% 0% 0% !important;
+    padding: 3%;
+    overflow: auto;
+    white-space: nowrap;
   }
 </style>
