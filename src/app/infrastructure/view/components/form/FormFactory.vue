@@ -26,6 +26,7 @@ import Select from './Select'
 import DateTime from './DateTime'
 import ButtonDateIcon from './ButtonDateIcon'
 import Radio from './Radio'
+import RadioGroup from './RadioGroup'
 
 export default {
   name: 'FormFactory',
@@ -57,7 +58,8 @@ export default {
     Select,
     DateTime,
     ButtonDateIcon,
-    Radio
+    Radio,
+    RadioGroup
   },
   methods: {
     formAction (action) {

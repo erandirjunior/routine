@@ -1,8 +1,7 @@
 <template>
-  <q-radio
+  <q-option-group
     v-model="model"
-    :val="field.val"
-    :label="field.label"
+    :options="field.options"
     :color="field.color"
     :dark="field.darkMode"
     :class="field.inputClass"
@@ -13,6 +12,8 @@
     :error-message="field.errorMessage"
     :disable="field.disable(field, form)"
     v-if="field.showInput(field, form)"
+    :inline="field.inline"
+    :dense="field.dense"
   />
 </template>
 
@@ -20,7 +21,7 @@
 import formComponentMixin from '../../mixins/formComponentMixin'
 
 export default {
-  name: 'Radio',
+  name: 'RadioGroup',
   mixins: [
     formComponentMixin
   ]

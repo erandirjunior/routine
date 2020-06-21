@@ -12,7 +12,7 @@ export default class ListButtonBuilder extends FormBuilder {
       .setIcon('done_all')
       .setColor('white')
       .setShow((field, form) => form.finished)
-      .setSize('md')
+      .setStyle('font-size: 27px')
 
     const btnFinish = new ButtonIcon()
       .setIcon('done')
@@ -22,7 +22,7 @@ export default class ListButtonBuilder extends FormBuilder {
       .setRound(true)
       .setClass('col-xs-2 secondary-bg-color')
       .setClick('finishTask')
-      .setStyle('margin: 8% 10%;')
+      .setStyle('margin: 1% 10%;')
       .setSize('sm')
 
     const btnEdit = new ButtonIcon()
@@ -33,7 +33,7 @@ export default class ListButtonBuilder extends FormBuilder {
       .setRound(true)
       .setClass('secondary-bg-color')
       .setClick('editTask')
-      .setStyle('margin: 8% 10%;')
+      .setStyle('margin: 1% 10%;')
       .setSize('sm')
 
     const btnDeleteTask = new ButtonIcon()
@@ -44,7 +44,7 @@ export default class ListButtonBuilder extends FormBuilder {
       .setRound(true)
       .setClass('secondary-bg-color')
       .setClick('remove')
-      .setStyle('margin: 8% 10%;')
+      .setStyle('margin: 1% 10%;')
       .setSize('sm')
 
     this.addField(btnFinishedIcon)
