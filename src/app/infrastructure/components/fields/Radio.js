@@ -4,15 +4,16 @@ export default class Radio extends Field {
   constructor () {
     super()
     this.fieldType = 'Radio'
+    this.val = ''
     this.type = 'radio'
     this.size = ''
-    this.options = []
     this.label = ''
     this.color = ''
     this.class = ''
     this.inputClass = ''
     this.style = ''
     this.darkMode = false
+    this.dense = false
     this.disable = () => false
   }
 
@@ -58,12 +59,6 @@ export default class Radio extends Field {
     return this
   }
 
-  setOptions (options) {
-    this.options = options
-
-    return this
-  }
-
   setType (type) {
     this.type = type
 
@@ -72,6 +67,18 @@ export default class Radio extends Field {
 
   setDisable (disable) {
     this.disable = disable
+
+    return this
+  }
+
+  setVal (val) {
+    this.val = val
+
+    return this
+  }
+
+  setDense (dense) {
+    this.dense = dense
 
     return this
   }
