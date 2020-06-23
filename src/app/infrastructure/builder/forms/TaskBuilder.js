@@ -26,10 +26,10 @@ export default class TaskBuilder extends FormBuilder {
       .setModel('title')
       .setColor('white')
       .setClass('col-xs-12 secondary-bg-color')
-      .setStyle('color: white; margin: 2% 5% 0% 5%')
+      .setStyle('color: white; margin: 2% 5% 2% 5%')
       .setFilled(true)
       .setDarkMode(true)
-      .setErrorMessage('You should add at least one task!')
+      .setErrorMessage('You should define a title!')
 
     const select = new Select()
       .setLabel('Group')
