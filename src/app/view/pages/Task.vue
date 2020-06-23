@@ -105,6 +105,9 @@ export default {
   },
   validations: {
     form: {
+      title: {
+        required
+      },
       groupId: {
         required
       }
@@ -143,8 +146,6 @@ export default {
         .then(resp => {
           this.form.id = resp.id
           this.form.groupId = resp.groupId
-          this.form.date = resp.date
-          this.form.finalDate = resp.created
           this.form.title = resp.name
           resp.tasks.forEach(task => {
             const position = this.form.tasks.length
@@ -164,8 +165,12 @@ export default {
       this.form.taskTitle = ''
       this.form.tasks = []
       this.form.groupId = ''
-      this.form.finalDate = ''
-      this.form.repeat = false
+      this.form.date = {
+        mode: '1',
+        date: '',
+        dates: [],
+        days: []
+      }
     },
     handleTaskItem () {
       if (this.form.taskTitle) {

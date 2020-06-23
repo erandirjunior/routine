@@ -8,10 +8,9 @@ export default class TaskCreate {
 
   create (parameters) {
     return this.taskCreate.create(
-      parameters.repeat,
       parameters.groupId,
-      parameters.finalDate,
-      parameters.title)
+      parameters.title,
+      parameters.date)
       .then(result => {
         result.forEach(item => {
           this.taskItem.create(parameters.tasks, item)

@@ -102,7 +102,7 @@ export default class TaskRepository {
   }
 
   find (id) {
-    const query = `SELECT * FROM tb_task WHERE id = ?`
+    const query = 'SELECT * FROM tb_task WHERE id = ?'
     return new Promise((resolve, reject) => {
       this.connection.transaction((tx) => {
         tx.executeSql(query, [id], function (tx, rs) {
