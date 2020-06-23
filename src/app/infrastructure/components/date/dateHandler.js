@@ -11,6 +11,9 @@ export default function dateHandler () {
     },
     getDate (format = 'YYYY-MM-DD', translate = {}) {
       return date.formatDate(this.date, format, translate)
+    },
+    getDay () {
+      return this.date.getDay()
     }
   }
 }
