@@ -145,7 +145,9 @@ module.exports = function (ctx) {
         'QFabAction',
         'QSeparator',
         'QMenu',
-        'QOptionGroup'
+        'QOptionGroup',
+        'QRadio',
+        'QIcon'
       ],
 
       directives: [
