@@ -8,7 +8,7 @@ import Button from 'src/app/infrastructure/components/fields/Button'
 import ButtonIcon from 'src/app/infrastructure/components/fields/ButtonIcon'
 import Icon from 'src/app/infrastructure/components/fields/Icon'
 
-export default class IndexFormBuilder extends FormBuilder {
+export default class ExampleFormBuilder extends FormBuilder {
   createFields () {
     this.insertFirstFields()
   }
@@ -60,7 +60,7 @@ export default class IndexFormBuilder extends FormBuilder {
         icon: 'golf_course'
       }
     ]
-    console.log(objectList, simpleList)
+
     const inputs = [
       ...this.createInputs(),
       ...this.createSelects(simpleList, objectList),

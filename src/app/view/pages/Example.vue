@@ -22,7 +22,7 @@
 
 <script>
 import FormFactory from '../components/general/form/FormFactory'
-import IndexFormBuilder from '../../infrastructure/builder/forms/IndexFormBuilder'
+import ExampleFormBuilder from '../../infrastructure/builder/forms/ExampleFormBuilder'
 import ListComponent from '../components/general/list/ListComponent'
 
 export default {
@@ -33,7 +33,7 @@ export default {
   },
   data () {
     return {
-      fields: new IndexFormBuilder(),
+      fields: new ExampleFormBuilder(),
       form: {
         text: '',
         select: '',
