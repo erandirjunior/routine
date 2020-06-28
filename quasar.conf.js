@@ -86,12 +86,17 @@ module.exports = function (ctx) {
         'QFabAction',
         'QSeparator',
         'QMenu',
-        'QOptionGroup'
+        'QOptionGroup',
+        'QDialog',
+        'QFooter',
+        'QBtnGroup',
+        'QRadio'
       ],
 
       directives: [
         'Ripple',
-        'ClosePopup'
+        'ClosePopup',
+        'GoBack'
       ],
       // Quasar plugins
       plugins: [
