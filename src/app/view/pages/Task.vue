@@ -172,9 +172,9 @@ export default {
         days: []
       }
     },
-    handleTaskItem () {
+    handlerTaskItem () {
       if (this.form.taskTitle) {
-        if (this.form.id !== '') {
+        if (this.item.id !== undefined) {
           return this.updateDescriptionTaskItem()
         }
 
@@ -182,27 +182,27 @@ export default {
       }
     },
     updateDescriptionTaskItem () {
-      const id = this.form.tasks[this.item.position].id
-      const finished = this.form.tasks[this.item.position].finished ? 1 : 0
+      const position = this.item.position
+      const id = this.form.tasks[position].id
+      const finished = this.form.tasks[position].finished ? 1 : 0
       const description = this.form.taskTitle
       this.fields.modifyIconButton('add')
+      this.resetFields()
 
       if (id) {
         return this.updateTaskItem(id, finished, description)
       }
 
-      this.form.tasks[this.item.position].name = this.form.taskTitle
-      this.resetFields()
+      this.form.tasks[position].name = description
     },
     resetFields () {
-      this.item.position = ''
+      this.item = {}
       this.form.taskTitle = ''
     },
     updateTaskItem (id, finished, description) {
       this.controllerTaskItemUpdate
         .update(id, finished, description)
         .then(() => {
-          this.resetFields()
           this.loadTaskItems('Success in updating task item!', 'green', 'thumb_up')
         })
     },
@@ -222,8 +222,8 @@ export default {
     },
     add () {
       const position = this.form.tasks.length
-      const item = this.createObjectItem('', this.form.taskTitle, position, 0)
-      this.form.taskTitle = ''
+      const item = this.createObjectItem(0, this.form.taskTitle, position, 0)
+      this.resetFields()
 
       if (this.form.id) {
         return this.saveItem(item)
@@ -259,17 +259,19 @@ export default {
     },
     remove () {
       this.dialogListAction = !this.dialogListAction
-      this.resetFields()
       this.fields.modifyIconButton('add')
+      const id = this.item.id
+      const position = this.item.position
+      this.resetFields()
 
       if (this.form.id) {
-        return this.deleteItem()
+        return this.deleteItem(id)
       }
 
-      this.removePropertyForm(this.item.position)
+      this.removePropertyForm(position)
     },
-    deleteItem () {
-      this.controllerTaskItemDelete.delete(this.item.id)
+    deleteItem (id) {
+      this.controllerTaskItemDelete.delete(id)
         .then(() => {
           this.loadTaskItems('Success to delete task item!', 'green', 'thumb_up')
         })
@@ -297,6 +299,9 @@ export default {
       this.dialogListAction = !this.dialogListAction
       this.form.taskTitle = this.item.name
       this.fields.modifyIconButton('save')
+    },
+    cleanItemAttribute () {
+      this.item = {}
     }
   },
   created () {
