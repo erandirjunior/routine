@@ -19,9 +19,6 @@ export default class TaskItemRepository {
   }
 
   update (id, finished, description) {
-    console.log(id)
-    console.log(finished)
-    console.log(description)
     return new Promise((resolve, reject) => {
       this.connection.transaction(function (tx) {
         tx.executeSql('UPDATE tb_task_item SET updated_at = datetime(\'now\'), finished = ?, description = ? WHERE id = ?',
