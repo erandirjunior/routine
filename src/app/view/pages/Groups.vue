@@ -21,9 +21,9 @@
 
 <script>
 import handlerDeleteDataMixin from '../../infrastructure/view/mixins/handlerDeleteDataMixin'
-import TableComponent from '../../infrastructure/view/components/table/TableComponent'
+import TableComponent from 'components/pages/TableComponent'
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
-import HeaderBack from '../components/general/HeaderBack'
+import HeaderBack from 'components/pages/HeaderBack'
 
 export default {
   name: 'Groups',
