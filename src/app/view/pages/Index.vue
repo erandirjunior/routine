@@ -42,7 +42,7 @@
 <script>
 import Database from '../../infrastructure/persistense/Database'
 import Tables from '../../infrastructure/persistense/Tables'
-import ListActionComponent from '../../infrastructure/view/components/list/ListActionComponent'
+import ListActionComponent from '../components/pages/ListActionComponent'
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
 import TaskControllerBuilder from '../../infrastructure/builder/controller/TaskControllerBuilder'
 import IconListBuilder from '../../infrastructure/builder/forms/IconListBuilder'

@@ -31,9 +31,9 @@
 <script>
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
 import TaskControllerBuilder from '../../infrastructure/builder/controller/TaskControllerBuilder'
-import TableComponent from 'components/pages/TableComponent'
+import TableComponent from '../components/pages/TableComponent'
 import alert from '../../infrastructure/components/alert/alert'
-import HeaderBack from 'components/pages/HeaderBack'
+import HeaderBack from '../components/pages/HeaderBack'
 import TaskSelectBuilder from 'src/app/infrastructure/builder/forms/TaskSelectBuilder'
 
 export default {

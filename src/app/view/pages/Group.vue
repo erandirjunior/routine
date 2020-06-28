@@ -17,7 +17,7 @@ import GroupBuilder from '../../infrastructure/builder/forms/GroupBuilder'
 import FormFactory from '../../infrastructure/view/components/form/FormFactory'
 import { required } from 'vuelidate/lib/validators'
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
-import HeaderBack from 'components/pages/HeaderBack'
+import HeaderBack from '../components/pages/HeaderBack'
 
 export default {
   name: 'Group',

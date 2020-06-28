@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import Button from '../form/Button'
-import CheckBox from '../form/CheckBox'
-import ButtonIcon from '../form/ButtonIcon'
-import Icon from '../icon/Icon'
+import Button from '../../../infrastructure/view/components/form/Button'
+import CheckBox from '../../../infrastructure/view/components/form/CheckBox'
+import ButtonIcon from '../../../infrastructure/view/components/form/ButtonIcon'
+import Icon from '../../../infrastructure/view/components/icon/Icon'
 import Input from 'src/app/infrastructure/view/components/form/Input'
 import Textarea from 'src/app/infrastructure/view/components/form/Textarea'
 import Select from 'src/app/infrastructure/view/components/form/Select'
