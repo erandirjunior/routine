@@ -1,14 +1,13 @@
 export default class Field {
-  constructor () {
-    this.model = ''
-    this.modelIsArray = false
-    this.position = 0
-    this.errorMessage = ''
-    this.hasError = false
-    this.fieldType = ''
-    this.show = () => true
-    this.showInput = () => true
+  class = ''
+  color = ''
+  style = ''
+  columnStyle = ''
+  disable = () => false
+  hide = () => false
+  hideColumn = () => false
 
+  constructor () {
     return this
   }
 
@@ -16,44 +15,38 @@ export default class Field {
     return this
   }
 
-  setModel (model) {
-    this.model = model
+  setClass (styleClass) {
+    this.class = styleClass
 
     return this
   }
 
-  setModelIsArray (value) {
-    this.modelIsArray = value
+  setColor (color) {
+    this.color = color
 
     return this
   }
 
-  setPosition (index) {
-    this.position = index
+  setDisable (callback) {
+    this.disable = callback
 
     return this
   }
 
-  setHasError (hasError) {
-    this.hasError = hasError
+  setHide (callback) {
+    this.hide = callback
 
     return this
   }
 
-  setErrorMessage (errorMessage) {
-    this.errorMessage = errorMessage
+  setColumnStyle (columnStyle) {
+    this.columnStyle = columnStyle
 
     return this
   }
 
-  setShow (callback) {
-    this.show = callback
-
-    return this
-  }
-
-  setShowInput (callback) {
-    this.showInput = callback
+  setHideColumn (callback) {
+    this.hideColumn = callback
 
     return this
   }
