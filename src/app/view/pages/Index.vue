@@ -130,9 +130,9 @@ export default {
 <style>
   .list-main {
     width: 90%;
-    margin-top: 15%;
+    margin-top: 12%;
     border-radius: 0% 2% 2% 0%;
-    height: 24em
+    height: 25em
   }
   div.scrollmenu {
     margin: 0% 0% 0% !important;
