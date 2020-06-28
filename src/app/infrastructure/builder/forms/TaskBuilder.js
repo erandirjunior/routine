@@ -67,7 +67,7 @@ export default class TaskBuilder extends FormBuilder {
       .setAlign('center')
       .setClass('col-xs-3 secondary-bg-color')
       .setStyle('margin: 8% 0% 0% 15%; font-size: 15px;')
-      .setClick('handleTaskItem')
+      .setClick('handlerTaskItem')
       .setRound(false)
       .setSize('md')
 

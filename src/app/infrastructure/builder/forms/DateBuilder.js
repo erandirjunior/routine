@@ -31,7 +31,7 @@ export default class DateBuilder extends FormBuilder {
 
     const date = new Input()
       .setLabel('Select the limit date')
-      .setModel('finalDate')
+      .setModel('date')
       .setType('date')
       .setColor('white')
       .setClass('col-xs-12 secondary-bg-color')
@@ -40,7 +40,7 @@ export default class DateBuilder extends FormBuilder {
       .setFilled(true)
       .setShow((field, form) => form.mode === '1')
 
-    const week = new RadioGroup()
+    const days = new RadioGroup()
       .setOptions(this.getOptionList())
       .setModel('days')
       .setShow((field, form) => form.mode === '1')
@@ -56,7 +56,7 @@ export default class DateBuilder extends FormBuilder {
     this.addField(standardMode)
     this.addField(customMode)
     this.addField(date)
-    this.addField(week)
+    this.addField(days)
   }
 
   getOptionList () {
