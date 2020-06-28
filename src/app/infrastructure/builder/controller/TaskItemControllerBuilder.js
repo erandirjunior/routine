@@ -10,6 +10,7 @@ export default class TaskItemControllerBuilder {
       TaskItemRepositoryBuilder.create()
     )
   }
+
   static delete () {
     return new TaskItemDelete(
       TaskItemRepositoryBuilder.create()
