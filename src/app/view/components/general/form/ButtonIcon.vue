@@ -22,20 +22,15 @@
     :type="field.type"
     :to="field.to"
     :ripple="field.ripple"
-    @click="action(field.click, form)"
+    @click="action"
     :padding="field.padding"
     :icon="field.icon"
   />
 </template>
 
 <script>
-import handlerActionMixin from 'src/app/view/mixins/handlerActionMixin'
-
 export default {
-  name: 'Button',
-  mixins: [
-    handlerActionMixin
-  ],
+  name: 'ButtonIcon',
   props: {
     field: {
       type: Object,
@@ -44,6 +39,11 @@ export default {
     form: {
       type: Object,
       required: true
+    }
+  },
+  methods: {
+    action () {
+      this.$emit('action', { action: this.field.click, value: '' })
     }
   }
 }

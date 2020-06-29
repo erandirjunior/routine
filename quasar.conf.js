@@ -134,6 +134,7 @@ module.exports = function (ctx) {
           assets: path.resolve(__dirname, './src/app/view/assets'),
           builder: path.resolve(__dirname, './src/app/infrastructure/builder')
         }
+
         cfg.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
