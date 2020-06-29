@@ -6,7 +6,7 @@
 // Configuration for your app
 // https://quasar.dev/quasar-cli/quasar-conf-js
 /* eslint-env node */
-
+const path = require('path')
 module.exports = function (ctx) {
   return {
     // https://quasar.dev/quasar-cli/cli-documentation/supporting-ie
@@ -67,6 +67,19 @@ module.exports = function (ctx) {
 
       // https://quasar.dev/quasar-cli/cli-documentation/handling-webpack
       extendWebpack (cfg) {
+        cfg.resolve.alias = {
+          ...cfg.resolve.alias, // This adds the existing alias
+
+          // Add your own alias like this
+          components: path.resolve(__dirname, './src/app/view/components'),
+          pages: path.resolve(__dirname, './src/app/view/pages'),
+          layouts: path.resolve(__dirname, './src/app/view/layouts'),
+          mixins: path.resolve(__dirname, './src/app/view/mixins'),
+          assets: path.resolve(__dirname, './src/app/view/assets'),
+          builder: path.resolve(__dirname, './src/app/infrastructure/builder'),
+        },
+        console.log(cfg.resolve.alias)
+        console.log(__dirname)
         cfg.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
