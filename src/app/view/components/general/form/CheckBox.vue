@@ -3,7 +3,8 @@
     v-model="model"
     :label="field.label"
     :color="field.color"
-    :dark="field.darkMode"
+    :dark="field.dark"
+    :dense="field.dense"
     :class="field.class"
     :style="field.style"
     :size="field.size"
@@ -12,7 +13,7 @@
     :error-message="field.errorMessage"
     :disable="field.disable(form, field)"
     v-if="!field.hide(form, field)"
-    @input="action(field.input)"
+    @input="input"
   />
 </template>
 
@@ -23,7 +24,12 @@ export default {
   name: 'CheckBox',
   mixins: [
     formComponentMixin
-  ]
+  ],
+  methods: {
+    input (value) {
+      this.$emit('action', { action: this.field.input, value: value })
+    }
+  }
 }
 </script>
 

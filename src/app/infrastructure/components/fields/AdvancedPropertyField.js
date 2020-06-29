@@ -13,6 +13,7 @@ export default class AdvancedPropertyField extends ModelField {
   clearable = false
   readonly = () => false
   clear = ''
+  focus = ''
 
   setLabel (label) {
     this.label = label
@@ -82,6 +83,12 @@ export default class AdvancedPropertyField extends ModelField {
 
   setClear (methodName) {
     this.clear = methodName
+
+    return this
+  }
+
+  setFocus (methodName) {
+    this.focus = methodName
 
     return this
   }

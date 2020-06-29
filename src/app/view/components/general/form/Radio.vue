@@ -8,7 +8,7 @@
     v-model="model"
     :error="error"
     :error-message="field.errorMessage"
-    @input="action(field.input)"
+    @input="input"
     :keep-color="field.keepColor"
     :left-label="field.leftLabel"
     :dark="field.dark"
@@ -25,7 +25,12 @@ export default {
   name: 'Radio',
   mixins: [
     formComponentMixin
-  ]
+  ],
+  methods: {
+    input (value) {
+      this.$emit('action', { action: this.field.input, value: value })
+    }
+  }
 }
 </script>
 

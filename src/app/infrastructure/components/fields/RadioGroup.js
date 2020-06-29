@@ -4,7 +4,6 @@ export default class RadioGroup extends Radio {
   fieldType = 'RadioGroup'
   inline = false
   options = []
-  dense = false
   type = 'radio'
   size = ''
 
@@ -16,12 +15,6 @@ export default class RadioGroup extends Radio {
 
   setInline (inline) {
     this.inline = inline
-
-    return this
-  }
-
-  setDense (dense) {
-    this.dense = dense
 
     return this
   }

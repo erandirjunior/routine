@@ -28,13 +28,23 @@
 </template>
 
 <script>
-import formComponentMixin from 'src/app/view/mixins/formComponentMixin'
+import handlerActionMixin from 'src/app/view/mixins/handlerActionMixin'
 
 export default {
   name: 'Button',
   mixins: [
-    formComponentMixin
-  ]
+    handlerActionMixin
+  ],
+  props: {
+    field: {
+      type: Object,
+      required: true
+    },
+    form: {
+      type: Object,
+      required: true
+    }
+  }
 }
 </script>
 

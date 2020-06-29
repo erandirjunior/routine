@@ -21,6 +21,12 @@ export default class Field {
     return this
   }
 
+  setStyle (style) {
+    this.style = style
+
+    return this
+  }
+
   setColor (color) {
     this.color = color
 

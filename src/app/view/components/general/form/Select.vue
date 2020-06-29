@@ -21,9 +21,9 @@
     :behavior="field.behavior"
     :readonly="field.readonly(form, field)"
     :autofocus="field.autofocus"
-    @input="action(field.input)"
-    @focus="action(field.focus)"
-    @clear="action(field.clear)"
+    @input="input"
+    @focus="focus"
+    @clear="clear"
     :multiple="field.multiple"
     :options="field.options"
     :option-value="field.optionValue"
@@ -59,7 +59,18 @@ export default {
   name: 'Select',
   mixins: [
     formComponentMixin
-  ]
+  ],
+  methods: {
+    input (value) {
+      this.$emit('action', { action: this.field.input, value: value })
+    },
+    focus (value) {
+      this.$emit('action', { action: this.field.focus, value: value })
+    },
+    clear (value) {
+      this.$emit('action', { action: this.field.clear, value: value })
+    }
+  }
 }
 </script>
 

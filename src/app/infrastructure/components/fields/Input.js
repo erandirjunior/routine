@@ -20,7 +20,6 @@ export default class Input extends AdvancedPropertyField {
   prefix = ''
   mask = ''
   blur = ''
-  focus = ''
 
   setDark (dark) {
     this.dark = dark
@@ -126,12 +125,6 @@ export default class Input extends AdvancedPropertyField {
 
   setBlur (methodName) {
     this.blur = methodName
-
-    return this
-  }
-
-  setFocus (methodName) {
-    this.focus = methodName
 
     return this
   }

@@ -1,6 +1,6 @@
-import handlerActionMixin from 'src/app/infrastructure/view/mixins/handlerActionMixin'
-import handlerValidationFormMixin from 'src/app/infrastructure/view/mixins/handlerValidationFormMixin'
-import handlerAlertMixin from 'src/app/infrastructure/view/mixins/handlerAlertMixin'
+import handlerActionMixin from './handlerActionMixin'
+import handlerValidationFormMixin from './handlerValidationFormMixin'
+import handlerAlertMixin from './handlerAlertMixin'
 
 export default {
   data () {
@@ -28,7 +28,7 @@ export default {
     beforeCreate () {},
     afterFailCreate (error) {
       if (error) {
-        this.showAlert(error, 'red', 'thumb_down')
+        return this.showAlert(error, 'red', 'thumb_down')
       }
 
       return this.showAlert(this.failMessageCreate, 'red', 'thumb_down')

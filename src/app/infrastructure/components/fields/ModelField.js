@@ -37,7 +37,7 @@ export default class ModelField extends Field {
   }
 
   setInput (methodName) {
-    this.errorMessage = methodName
+    this.input = methodName
 
     return this
   }

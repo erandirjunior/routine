@@ -1,8 +1,13 @@
 export default {
   methods: {
     action (emit) {
-      const action = typeof emit.action === 'string' ? emit.action : emit.action.action
-      this[action](emit)
+      if (typeof emit.action === 'string' && emit.action !== '') {
+        return this[emit.action](emit)
+      }
+
+      if (emit.action.action !== '') {
+        return this[emit.action.action](emit)
+      }
     }
   }
 }

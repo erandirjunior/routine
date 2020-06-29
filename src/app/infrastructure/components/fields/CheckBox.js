@@ -5,6 +5,8 @@ export default class CheckBox extends ModelField {
   size = ''
   keepColor = false
   label = ''
+  dark = false
+  dense = false
 
   setSize (size) {
     this.size = size
@@ -20,6 +22,24 @@ export default class CheckBox extends ModelField {
 
   setLabel (label) {
     this.label = label
+
+    return this
+  }
+
+  setDisable (disable) {
+    this.disable = disable
+
+    return this
+  }
+
+  setDark (dark) {
+    this.dark = dark
+
+    return this
+  }
+
+  setDense (dense) {
+    this.dense = dense
 
     return this
   }

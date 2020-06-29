@@ -10,12 +10,13 @@
     :error-message="field.errorMessage"
     :keep-color="field.keepColor"
     :left-label="field.leftLabel"
-    :dark="field.darkMode"
+    :dark="field.dark"
     :type="field.type"
     :options="field.options"
     :dense="field.dense"
     :inline="field.inline"
     :size="field.size"
+    @input="input"
   />
 </template>
 
@@ -26,7 +27,12 @@ export default {
   name: 'RadioGroup',
   mixins: [
     formComponentMixin
-  ]
+  ],
+  methods: {
+    input (value) {
+      this.$emit('action', { action: this.field.input, value: value })
+    }
+  }
 }
 </script>
 

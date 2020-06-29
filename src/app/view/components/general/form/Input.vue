@@ -25,10 +25,10 @@
     :type="getType()"
     :mask="field.mask"
     :autofocus="field.autofocus"
-    @input="action(field.input)"
-    @focus="action(field.focus)"
-    @clear="action(field.clear)"
-    @blur="action(field.blur)"
+    @input="input"
+    @focus="focus"
+    @clear="clear"
+    @blur="blur"
   >
     <template v-slot:prepend v-if="field.hasPrepend">
       <q-icon :name="field.prependIcon" />
@@ -94,6 +94,18 @@ export default {
       }
 
       return this.field.type
+    },
+    input (value) {
+      this.$emit('action', { action: this.field.input, value: value })
+    },
+    focus (value) {
+      this.$emit('action', { action: this.field.focus, value: value })
+    },
+    clear (value) {
+      this.$emit('action', { action: this.field.clear, value: value })
+    },
+    blur (value) {
+      this.$emit('action', { action: this.field.blur, value: value })
     }
   }
 }

@@ -20,6 +20,7 @@ export default class Button extends Field {
   to = ''
   ripple = false
   padding = 'sm'
+  click = ''
 
   setClick (callback) {
     this.click = callback
