@@ -10,17 +10,17 @@ src
      └── boot # Boot files (app initialization code)
      └── builder # Factory to create something
        └── forms # Create forms
-         └── FormBulder.js # All forms should extends this class
+         └── FormBulder.js # All form builders should extends this class
      └── components # Helpers and other classes to support application, domain and view layers
      └── i18n # i18n dictionary
      └── store # Vue store to handle vuex
-     └── view # General components and mixins to support view layer
    └── view # View layer
      └── assets # Dynamic assets (processed by webpack)
      └── components # .vue components used in pages & layouts
      └── layouts # Your layouts
      └── pages # Your pages
-     └── statics # Pure static assets (directly copied)
+     └── mixins # Mixins used in .vue files
+ └── statics # Pure static assets (directly copied)
  └── css # CSS/Stylus/Sass/... files for your app
  └── router # Vue Router
  </pre>
