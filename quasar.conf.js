@@ -76,10 +76,9 @@ module.exports = function (ctx) {
           layouts: path.resolve(__dirname, './src/app/view/layouts'),
           mixins: path.resolve(__dirname, './src/app/view/mixins'),
           assets: path.resolve(__dirname, './src/app/view/assets'),
-          builder: path.resolve(__dirname, './src/app/infrastructure/builder'),
-        },
-        console.log(cfg.resolve.alias)
-        console.log(__dirname)
+          builder: path.resolve(__dirname, './src/app/infrastructure/builder')
+        }
+
         cfg.module.rules.push({
           enforce: 'pre',
           test: /\.(js|vue)$/,
