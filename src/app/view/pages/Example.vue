@@ -4,6 +4,7 @@
       class-factory="row q-col-gutter-sm"
       :form="form"
       :fields="fields"
+      @formAction="action"
     />
     <list-component separator="true" :data="list">
       <div slot-scope="row" style="display: contents">
@@ -21,9 +22,10 @@
 </template>
 
 <script>
-import FormFactory from '../components/general/form/FormFactory'
-import ExampleFormBuilder from '../../infrastructure/builder/forms/ExampleFormBuilder'
-import ListComponent from '../components/general/list/ListComponent'
+import FormFactory from 'components/general/form/FormFactory'
+import ExampleFormBuilder from 'builder/forms/ExampleFormBuilder'
+import ListComponent from 'components/general/list/ListComponent'
+import handlerActionMixin from 'mixins/handlerActionMixin'
 
 export default {
   name: 'PageIndex',
@@ -31,6 +33,9 @@ export default {
     FormFactory,
     ListComponent
   },
+  mixins: [
+    handlerActionMixin
+  ],
   data () {
     return {
       fields: new ExampleFormBuilder(),
@@ -61,6 +66,14 @@ export default {
           icon: 'person'
         }
       ]
+    }
+  },
+  methods: {
+    alert () {
+      alert('Click Button')
+    },
+    selectValue (emit) {
+      alert(emit.action.value)
     }
   }
 }
