@@ -1,22 +1,11 @@
 <template>
-  <q-page>
+  <q-page class="q-py-xs">
     <header-back to="/"/>
-    <q-select
-      label="Select a group"
-      filled
-      dark
-      behavior="menu"
-      standout
-      class="secondary-bg-color"
-      style="margin-bottom: 5%"
-      color="white"
-      emit-value
-      map-options
-      option-value="id"
-      option-label="name"
-      v-model="form.select"
-      :options="groups"
-      @input="loadTasks"
+    <form-factory
+      class-factory="row q-col-gutter-sm"
+      :fields="fields"
+      :form="form"
+      @formAction="action"
     />
     <table-component
       :columns="columns"
@@ -35,6 +24,8 @@ import TableComponent from '../components/pages/TableComponent'
 import alert from '../../infrastructure/components/alert/alert'
 import HeaderBack from '../components/pages/HeaderBack'
 import TaskSelectBuilder from 'src/app/infrastructure/builder/forms/TaskSelectBuilder'
+import FormFactory from '../components/general/form/FormFactory'
+import handlerActionMixin from 'src/app/view/mixins/handlerActionMixin'
 
 export default {
   name: 'Tasks',
@@ -89,26 +80,22 @@ export default {
         tableHeaderClass: 'white'
       },
       data: [],
-      groups: [],
-      show: false,
       form: {
-        name: '',
-        id: '',
-        select: ''
+        groupId: ''
       }
     }
   },
+  mixins: [
+    handlerActionMixin
+  ],
   components: {
     TableComponent,
-    HeaderBack
+    HeaderBack,
+    FormFactory
   },
   methods: {
-    action (action) {
-      this[action.action](action.id)
-      console.log(action)
-    },
-    loadTasks (id) {
-      this.controllerFind.findByIdGroup(id)
+    loadTasks () {
+      this.controllerFind.findByIdGroup(this.form.groupId)
         .then(resp => {
           this.data = resp
         })
@@ -116,18 +103,25 @@ export default {
     loadGroups () {
       this.controllerFindAll.findAll()
         .then(data => {
-          this.groups = data
+          this.fields.addOptions(data.map(item => {
+            return {
+              label: item.name,
+              value: item.id,
+              afterIcon: 'label',
+              afterIconColor: item.color
+            }
+          }))
         })
     },
-    delete (id) {
-      this.controllerDelete.delete(id)
+    delete (item) {
+      this.controllerDelete.delete(item.id)
         .then(() => {
           alert('Success to delete task!', 'positive', 'thumb_up')
-          this.loadTasks(this.select)
+          this.loadTasks()
         })
     },
-    edit (id) {
-      this.$router.push(`task/${id}`)
+    edit (item) {
+      this.$router.push(`task/${item.id}`)
     }
   },
   created () {

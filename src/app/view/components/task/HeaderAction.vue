@@ -25,7 +25,7 @@
 </template>
 
 <script>
-import handlerActionMixin from 'src/app/infrastructure/view/mixins/handlerActionMixin'
+import handlerActionMixin from '../../mixins/handlerActionMixin'
 
 export default {
   name: 'HeaderAction',

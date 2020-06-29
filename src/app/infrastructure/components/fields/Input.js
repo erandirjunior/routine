@@ -1,41 +1,28 @@
-import FieldStyle from 'src/app/infrastructure/components/fields/FieldStyle'
+import AdvancedPropertyField from 'src/app/infrastructure/components/fields/AdvancedPropertyField'
 
-export default class Input extends FieldStyle {
-  constructor () {
-    super()
-    this.fieldType = 'Input'
-    this.label = ''
-    this.model = ''
-    this.type = 'input'
-    this.modelIsArray = false
-    this.position = 0
-    this.hasPrepend = false
-    this.hasAppend = false
-    this.hasHint = false
-    this.prependIcon = ''
-    this.appendIcon = ''
-    this.textHint = ''
-    this.hasAfterIcon = false
-    this.hasBeforeIcon = false
-    this.afterIcon = ''
-    this.beforeIcon = ''
-    this.autogrow = false
-    this.suffix = ''
-    this.prefix = ''
-    this.hasError = false
-    this.errorMessage = ''
+export default class Input extends AdvancedPropertyField {
+  fieldType = 'Input'
+  dark = false
+  type = 'input'
+  autofocus = false
+  hasPrepend = false
+  hasAppend = false
+  hasHint = false
+  prependIcon = ''
+  appendIcon = ''
+  textHint = ''
+  hasAfterIcon = false
+  hasBeforeIcon = false
+  afterIcon = ''
+  beforeIcon = ''
+  autogrow = false
+  suffix = ''
+  prefix = ''
+  mask = ''
+  blur = ''
 
-    return this
-  }
-
-  setLabel (label) {
-    this.label = label
-
-    return this
-  }
-
-  setModel (model) {
-    this.model = model
+  setDark (dark) {
+    this.dark = dark
 
     return this
   }
@@ -46,14 +33,8 @@ export default class Input extends FieldStyle {
     return this
   }
 
-  setModelIsArray (value) {
-    this.modelIsArray = value
-
-    return this
-  }
-
-  setPosition (index) {
-    this.position = index
+  setAutofocus (autofocus) {
+    this.autofocus = autofocus
 
     return this
   }
@@ -136,24 +117,14 @@ export default class Input extends FieldStyle {
     return this
   }
 
-  setHasError (hasError) {
-    this.hasError = hasError
+  setMask (mask) {
+    this.mask = mask
 
     return this
   }
 
-  setColor (color) {
-    this.color = color
-
-    return this
-  }
-
-  getFields () {
-    return this
-  }
-
-  setErrorMessage (errorMessage) {
-    this.errorMessage = errorMessage
+  setBlur (methodName) {
+    this.blur = methodName
 
     return this
   }

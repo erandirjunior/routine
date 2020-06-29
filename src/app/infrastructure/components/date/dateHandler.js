@@ -3,11 +3,11 @@ import { date } from 'quasar'
 export default function dateHandler () {
   return {
     date: new Date(),
-    addDays (day) {
-      this.date = date.addToDate(this.date, { days: day })
+    addDate (object) {
+      this.date = date.addToDate(this.date, object)
     },
-    removeDays (day) {
-      this.date = date.subtractFromDate(this.date, { days: day })
+    removeDate (object) {
+      this.date = date.subtractFromDate(this.date, object)
     },
     getDate (format = 'YYYY-MM-DD', translate = {}) {
       return date.formatDate(this.date, format, translate)

@@ -1,26 +1,18 @@
 import Field from 'src/app/infrastructure/components/fields/Field'
 
 export default class Icon extends Field {
-  createFields () {
-    super.createFields()
-    this.size = ''
-    this.icon = ''
-  }
+  fieldType = 'Icon'
+  icon = ''
+  size = 'md'
 
-  setFieldType () {
-    this.fieldType = 'Icon'
+  setSize (size) {
+    this.size = size
 
     return this
   }
 
   setIcon (icon) {
     this.icon = icon
-
-    return this
-  }
-
-  setSize (size) {
-    this.size = size
 
     return this
   }

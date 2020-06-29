@@ -14,7 +14,7 @@
       <div class="col-xs-12">
         <list-action-component
           position-components="before"
-          style="margin: 0% 5%"
+          style="margin: 0% 3%"
           section="name"
           :data="form.tasks"
           :components="buttons.getFields()"
@@ -45,8 +45,8 @@
 
 <script>
 import TaskBuilder from '../../infrastructure/builder/forms/TaskBuilder'
-import FormFactory from '../../infrastructure/view/components/form/FormFactory'
-import handlerFormMixin from '../../infrastructure/view/mixins/handlerFormMixin'
+import FormFactory from '../components/general/form/FormFactory'
+import handlerFormMixin from '../mixins/handlerFormMixin'
 import ButtonItemHandler from '../components/task/ButtonItemHandler'
 import HeaderAction from '../components/task/HeaderAction'
 import Repetion from '../components/task/Repetion'

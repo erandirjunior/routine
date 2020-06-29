@@ -1,12 +1,11 @@
 import Radio from 'src/app/infrastructure/components/fields/Radio'
 
 export default class RadioGroup extends Radio {
-  constructor () {
-    super()
-    this.fieldType = 'RadioGroup'
-    this.inline = false
-    this.options = []
-  }
+  fieldType = 'RadioGroup'
+  inline = false
+  options = []
+  type = 'radio'
+  size = ''
 
   setOptions (options) {
     this.options = options
@@ -16,6 +15,18 @@ export default class RadioGroup extends Radio {
 
   setInline (inline) {
     this.inline = inline
+
+    return this
+  }
+
+  setType (type) {
+    this.type = type
+
+    return this
+  }
+
+  setSize (size) {
+    this.size = size
 
     return this
   }

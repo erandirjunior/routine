@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import FormFactory from 'src/app/infrastructure/view/components/form/FormFactory'
+import FormFactory from '../general/form/FormFactory'
 import DateBuilder from 'src/app/infrastructure/builder/forms/DateBuilder'
 
 export default {

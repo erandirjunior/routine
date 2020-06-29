@@ -34,7 +34,7 @@ export default class TaskCreateHandler {
         continue
       }
 
-      this.dateHander.addDays(1)
+      this.dateHander.addDate({ days: 1 })
     }
   }
 
@@ -79,7 +79,7 @@ export default class TaskCreateHandler {
       .then(id => {
         this.ids.push(id)
         this.count++
-        this.dateHander.addDays(1)
+        this.dateHander.addDate({ days: 1 })
         return this.ids
       })
   }

@@ -20,7 +20,7 @@
 </template>
 
 <script>
-import handlerDeleteDataMixin from '../../infrastructure/view/mixins/handlerDeleteDataMixin'
+import handlerDeleteDataMixin from '../mixins/handlerDeleteDataMixin'
 import TableComponent from '../components/pages/TableComponent'
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
 import HeaderBack from '../components/pages/HeaderBack'
@@ -92,8 +92,11 @@ export default {
     },
     delete (emit) {
       this.controllerDelete.delete(emit.id)
-      this.afterSuccessDelete()
-      this.loadData()
+        .then(resp => {
+          console.log(resp)
+          this.afterSuccessDelete()
+          this.loadData()
+        })
     },
     edit (group) {
       this.$router.push(`/group/${group.id}`)

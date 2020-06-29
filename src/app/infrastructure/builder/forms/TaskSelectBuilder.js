@@ -9,7 +9,8 @@ export default class TaskSelectBuilder extends FormBuilder {
   insertFirstFields () {
     const select = new Select()
       .setLabel('Group')
-      .setModel('select')
+      .setModel('groupId')
+      .setSquare(true)
       .setFilled(true)
       .setOptionValue('value')
       .setOptionLabel('label')
@@ -17,12 +18,12 @@ export default class TaskSelectBuilder extends FormBuilder {
       .setHasContent(true)
       .setHasLabel(true)
       .setHasAfterIcon(true)
-      .setDarkMode(true)
-      .setClass('col-xs-12 secondary-bg-color')
-      .setStyle('margin: 0% 5% 0%')
+      .setDark(true)
+      .setColumnStyle('col-xs-12 secondary-bg-color')
+      .setStyle('margin: 5% 5% 0% 5%')
       .setColor('white')
       .setErrorMessage('You should select an option!')
-      .setDense(true)
+      .setInput('loadTasks')
 
     this.addField(select)
   }

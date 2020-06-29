@@ -2,6 +2,7 @@
   <q-page class="q-pa-xs">
     <header-back to="/groups"/>
     <form-factory
+      class-factory="row q-col-gutter-sm"
       :fields="fields"
       :form="form"
       :validation="$v"
@@ -11,10 +12,10 @@
 </template>
 
 <script>
-import handlerCreateDataMixin from '../../infrastructure/view/mixins/handlerCreateDataMixin'
-import handlerUpdateDataMixin from '../../infrastructure/view/mixins/handlerUpdateDataMixin'
+import handlerCreateDataMixin from '../mixins/handlerCreateDataMixin'
+import handlerUpdateDataMixin from '../mixins/handlerUpdateDataMixin'
 import GroupBuilder from '../../infrastructure/builder/forms/GroupBuilder'
-import FormFactory from '../../infrastructure/view/components/form/FormFactory'
+import FormFactory from '../components/general/form/FormFactory'
 import { required } from 'vuelidate/lib/validators'
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
 import HeaderBack from '../components/pages/HeaderBack'

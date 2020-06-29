@@ -90,6 +90,7 @@ module.exports = function (ctx) {
         'QDialog',
         'QFooter',
         'QBtnGroup',
+        'QIcon',
         'QRadio'
       ],
 
