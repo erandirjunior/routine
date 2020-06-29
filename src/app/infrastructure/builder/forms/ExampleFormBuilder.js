@@ -257,7 +257,6 @@ export default class ExampleFormBuilder extends FormBuilder {
         .setOutlined(true)
         .setType('time'),
       new Input()
-        .setLabel('File')
         .setModel('text')
         .setColumnStyle('col-xs-3')
         .setOutlined(true)
@@ -362,7 +361,8 @@ export default class ExampleFormBuilder extends FormBuilder {
         .setSquare(true)
         .setOptionLabel('label')
         .setOptionValue('value')
-        .setColumnStyle('col-xs-3'),
+        .setColumnStyle('col-xs-3')
+        .setInput('selectValue'),
       new Select()
         .setLabel('Custom Options')
         .setModel('select')
@@ -374,7 +374,9 @@ export default class ExampleFormBuilder extends FormBuilder {
         .setHasLabel(true)
         .setHasCaption(true)
         .setHasAfterIcon(true)
-        .setColumnStyle('col-xs-3'),
+        .setColumnStyle('col-xs-3')
+        .setOptionLabel('label')
+        .setOptionValue('value'),
       new Select()
         .setLabel('Behavior')
         .setModel('select')
@@ -432,7 +434,8 @@ export default class ExampleFormBuilder extends FormBuilder {
         .setLabel('Button')
         .setColor('teal-5')
         .setRipple({ color: 'red' })
-        .setPadding('xs'),
+        .setPadding('xs')
+        .setClick('alert'),
       new Button()
         .setLabel('Without Ripple')
         .setColor('teal-5')
