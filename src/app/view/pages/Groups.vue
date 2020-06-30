@@ -93,7 +93,6 @@ export default {
     delete (emit) {
       this.controllerDelete.delete(emit.id)
         .then(resp => {
-          console.log(resp)
           this.afterSuccessDelete()
           this.loadData()
         })

@@ -8,7 +8,7 @@
         to="/task"
       />
     </q-page-sticky>
-    <div class="scrollmenu secondary-bg-color">
+    <div class="menu-scroll secondary-bg-color">
       <div class="row no-wrap">
         <q-btn
           flat
@@ -25,16 +25,18 @@
     <q-scroll-area
       class="list-main secondary-bg-color rounded-borders"
     >
-      <list-action-component
-        style="margin: 0% 4%"
-        section="name"
-        use-index-form="true"
-        :data="tasks"
-        key-components="icon"
-        @action="goToTask"
-        dark="true"
-        dense="true"
-      />
+      <list-component separator="true" :data="tasks" :dark="true" style="margin: 0% 4%">
+        <div slot-scope="row" style="display: contents;">
+          <q-item-section style="margin: 2% 0%" @click="goToTask(row.row.id)">
+            <q-item-label class="text-white">{{ row.row.title }}</q-item-label>
+            <q-item-label caption>Created in: {{ formatDate(row.row.created) }}</q-item-label>
+          </q-item-section>
+
+          <q-item-section side @click="goToTask(row.row.id)">
+            <q-icon name="label" :color="row.row.color" size="md"/>
+          </q-item-section>
+        </div>
+      </list-component>
     </q-scroll-area>
   </q-page>
 </template>
@@ -42,10 +44,9 @@
 <script>
 import Database from '../../infrastructure/persistense/Database'
 import Tables from '../../infrastructure/persistense/Tables'
-import ListActionComponent from '../components/pages/ListActionComponent'
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
 import TaskControllerBuilder from '../../infrastructure/builder/controller/TaskControllerBuilder'
-import IconListBuilder from '../../infrastructure/builder/forms/IconListBuilder'
+import ListComponent from 'components/general/list/ListComponent'
 
 export default {
   name: 'PageIndex',
@@ -62,9 +63,12 @@ export default {
     }
   },
   components: {
-    ListActionComponent
+    ListComponent
   },
   methods: {
+    formatDate (date) {
+      return date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$2/$3/$1')
+    },
     loadGroups () {
       this.groupController.findAll()
         .then(data => {
@@ -78,7 +82,7 @@ export default {
     loadAllTasks () {
       this.taskFindAllController.findAll()
         .then(data => {
-          this.loadListItem(data)
+          this.tasks = data
         })
     },
     loadTasks (id = null) {
@@ -91,32 +95,16 @@ export default {
     loadTasksByIdGroup (id) {
       this.taskFindByGroupController.findByIdGroup(id)
         .then(data => {
-          this.loadListItem(data)
+          this.tasks = data
         })
-    },
-    loadListItem (data) {
-      this.tasks = []
-
-      data.forEach(item => {
-        const iconListBuilder = new IconListBuilder()
-        iconListBuilder.addIcon(item.color)
-
-        this.tasks.push({
-          created: item.created,
-          name: item.name,
-          id: item.id,
-          icon: iconListBuilder.getFields(),
-          action: 'goToTask'
-        })
-      })
     },
     createTableIfNotExists () {
       const database = Database.getConnection()
       const tables = new Tables(database)
       tables.createTable()
     },
-    goToTask (item) {
-      this.$router.push(`/task/${item.value.id}`)
+    goToTask (id) {
+      this.$router.push(`/task/${id}`)
     }
   },
   created () {
@@ -130,11 +118,11 @@ export default {
 <style>
   .list-main {
     width: 90%;
-    margin-top: 12%;
+    margin-top: 9%;
     border-radius: 0% 2% 2% 0%;
-    height: 25em
+    height: 27em
   }
-  div.scrollmenu {
+  div.menu-scroll {
     margin: 0% 0% 0% !important;
     padding: 3%;
     overflow: auto;

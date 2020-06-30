@@ -3,6 +3,7 @@
     <header-action :id="form.id" @finishTask="finishFullTask"/>
 
     <form-factory
+      class-factory="row q-col-gutter-xs"
       :fields="fields"
       :form="form"
       :validation="$v"
@@ -12,15 +13,18 @@
 
     <div class="row q-gutter-xs secondary-bg-color">
       <div class="col-xs-12">
-        <list-action-component
-          position-components="before"
-          style="margin: 0% 3%"
-          section="name"
-          :data="form.tasks"
-          :components="buttons.getFields()"
-          @action="action"
-          dark="true"
-        />
+        <list-component separator="true" :data="form.tasks" :dark="true" style="margin: 0% 4%">
+          <div slot-scope="row" style="display: contents;">
+            <q-item-section style="margin: 2% 0%" @click="openListAction(row.row)">
+              <q-item-label>
+                <q-input dark dense :value="row.row.name" autogrow readonly borderless /></q-item-label>
+            </q-item-section>
+
+            <q-item-section side>
+              <q-icon name="done_all" color="white" size="md" v-if="row.row.finished"/>
+            </q-item-section>
+          </div>
+        </list-component>
       </div>
     </div>
 
@@ -44,26 +48,24 @@
 </template>
 
 <script>
-import TaskBuilder from '../../infrastructure/builder/forms/TaskBuilder'
-import FormFactory from '../components/general/form/FormFactory'
-import handlerFormMixin from '../mixins/handlerFormMixin'
-import ButtonItemHandler from '../components/task/ButtonItemHandler'
-import HeaderAction from '../components/task/HeaderAction'
-import Repetion from '../components/task/Repetion'
+import TaskBuilder from 'builder/forms/TaskBuilder'
+import FormFactory from 'components/general/form/FormFactory'
+import handlerFormMixin from 'mixins/handlerFormMixin'
+import ButtonItemHandler from 'components/task/ButtonItemHandler'
+import HeaderAction from 'components/task/HeaderAction'
+import Repetion from 'components/task/Repetion'
 import dateHandler from '../../infrastructure/components/date/dateHandler'
 import { required } from 'vuelidate/lib/validators'
-import ListBuilder from '../../infrastructure/builder/forms/ListBuilder'
-import ListActionComponent from '../components/pages/ListActionComponent'
-import TaskControllerBuilder from '../../infrastructure/builder/controller/TaskControllerBuilder'
-import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
-import TaskItemControllerBuilder from '../../infrastructure/builder/controller/TaskItemControllerBuilder'
+import TaskControllerBuilder from 'builder/controller/TaskControllerBuilder'
+import GroupControllerBuilder from 'builder/controller/GroupControllerBuilder'
+import TaskItemControllerBuilder from 'builder/controller/TaskItemControllerBuilder'
+import ListComponent from 'components/general/list/ListComponent'
 
 export default {
   name: 'PageIndex',
   data () {
     return {
       fields: new TaskBuilder(),
-      buttons: new ListBuilder(),
       controllerFind: TaskControllerBuilder.find(),
       groupController: GroupControllerBuilder.findAll(),
       controllerCreate: TaskControllerBuilder.create(),
@@ -98,10 +100,10 @@ export default {
   ],
   components: {
     FormFactory,
-    ListActionComponent,
     ButtonItemHandler,
     HeaderAction,
-    Repetion
+    Repetion,
+    ListComponent
   },
   validations: {
     form: {
@@ -123,7 +125,7 @@ export default {
       this.form.repeat = false
     },
     openListAction (itemList) {
-      this.item = itemList.value
+      this.item = itemList
       this.dialogListAction = !this.dialogListAction
     },
     loadGroups () {
@@ -299,9 +301,6 @@ export default {
       this.dialogListAction = !this.dialogListAction
       this.form.taskTitle = this.item.name
       this.fields.modifyIconButton('save')
-    },
-    cleanItemAttribute () {
-      this.item = {}
     }
   },
   created () {

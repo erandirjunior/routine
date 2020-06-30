@@ -1,5 +1,5 @@
 <template>
-  <q-page class="q-pa-xs">
+  <q-page class="q-py-xs">
     <header-back to="/groups"/>
     <form-factory
       class-factory="row q-col-gutter-sm"
