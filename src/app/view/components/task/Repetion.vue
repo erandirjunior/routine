@@ -19,6 +19,7 @@
             color="white"
             class="secondary-bg-color"
             style="margin: 0% 11% 10% 35%;"
+            :min="getMinDate"
           />
         </div>
         <div class="col-xs-4">
@@ -48,7 +49,8 @@
 
 <script>
 import FormFactory from '../general/form/FormFactory'
-import DateBuilder from 'src/app/infrastructure/builder/forms/DateBuilder'
+import DateBuilder from 'builder/forms/DateBuilder'
+import dateHandler from 'src/app/infrastructure/components/date/dateHandler'
 
 export default {
   name: 'PageIndex',
@@ -65,6 +67,11 @@ export default {
   },
   components: {
     FormFactory
+  },
+  computed: {
+    getMinDate () {
+      return dateHandler().getDate('YYYY-MM-DD')
+    }
   },
   methods: {
     add () {
