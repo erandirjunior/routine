@@ -20,6 +20,8 @@ export default class Input extends AdvancedPropertyField {
   prefix = ''
   mask = ''
   blur = ''
+  min = ''
+  max = ''
 
   setDark (dark) {
     this.dark = dark
@@ -125,6 +127,18 @@ export default class Input extends AdvancedPropertyField {
 
   setBlur (methodName) {
     this.blur = methodName
+
+    return this
+  }
+
+  setMin (min) {
+    this.min = min
+
+    return this
+  }
+
+  setMax (max) {
+    this.max = max
 
     return this
   }

@@ -25,6 +25,8 @@
     :type="getType()"
     :mask="field.mask"
     :autofocus="field.autofocus"
+    :min="field.min"
+    :max="field.max"
     @input="input"
     @focus="focus"
     @clear="clear"
