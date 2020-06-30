@@ -22,10 +22,7 @@ export default class TaskRepository {
     const query = `SELECT
                       T.id,
                       T.created_at,
-                      CASE
-                        WHEN T.title IS NULL THEN G.name || ' - ' || T.created_at
-                        ELSE T.title || ' - ' || T.created_at
-                      END name,
+                      T.title,
                       G.color
                     FROM
                       tb_task T
@@ -46,7 +43,7 @@ export default class TaskRepository {
           for (let i = 0; i < rs.rows.length; i++) {
             data.push({
               id: rs.rows.item(i).id,
-              name: rs.rows.item(i).name,
+              title: rs.rows.item(i).title,
               created: rs.rows.item(i).created_at,
               color: rs.rows.item(i).color
             })
@@ -64,10 +61,7 @@ export default class TaskRepository {
     const query = `SELECT
                       T.id,
                       T.created_at,
-                      CASE
-                        WHEN T.title IS NULL THEN G.name || ' - ' || T.created_at
-                        ELSE T.title || ' - ' || T.created_at
-                      END name,
+                      T.title,
                       G.color
                     FROM
                       tb_task T
@@ -87,7 +81,7 @@ export default class TaskRepository {
           for (let i = 0; i < rs.rows.length; i++) {
             data.push({
               id: rs.rows.item(i).id,
-              name: rs.rows.item(i).name,
+              title: rs.rows.item(i).title,
               created: rs.rows.item(i).created_at,
               color: rs.rows.item(i).color
             })
