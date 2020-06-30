@@ -1,9 +1,8 @@
 import FormBuilder from 'src/app/infrastructure/builder/forms/FormBuilder'
 import Input from 'src/app/infrastructure/components/fields/Input'
-// import CheckBox from 'src/app/infrastructure/components/fields/CheckBox'
-// import ButtonDateIcon from 'src/app/infrastructure/components/fields/ButtonDateIcon'
 import SimpleRadio from 'src/app/infrastructure/components/fields/SimpleRadio'
 import RadioGroup from 'src/app/infrastructure/components/fields/RadioGroup'
+import dateHandler from 'src/app/infrastructure/components/date/dateHandler'
 
 export default class DateBuilder extends FormBuilder {
   createFields () {
@@ -39,6 +38,7 @@ export default class DateBuilder extends FormBuilder {
       .setDark(true)
       .setFilled(true)
       .setHide((form) => form.mode !== '1')
+      .setMin(dateHandler().getDate('YYYY-MM-DD'))
 
     const days = new RadioGroup()
       .setOptions(this.getOptionList())

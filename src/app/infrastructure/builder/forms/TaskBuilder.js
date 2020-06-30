@@ -18,7 +18,7 @@ export default class TaskBuilder extends FormBuilder {
       .setStyle('color: white; margin: 0% 0% 0% 24%;')
       .setDark(false)
       .setLabel('Setting Repetion')
-      .setHide((field, form) => form.id)
+      .setHideColumn((form) => form.id)
       .setKeepColor(true)
 
     const title = new Input()
@@ -27,7 +27,7 @@ export default class TaskBuilder extends FormBuilder {
       .setModel('title')
       .setColor('white')
       .setColumnStyle('col-xs-12 secondary-bg-color')
-      .setStyle('color: white; margin: 2% 5% 2% 5%')
+      .setStyle('color: white; margin: 3% 5% 2% 5%')
       .setFilled(true)
       .setDark(true)
       .setErrorMessage('You should define a title!')
