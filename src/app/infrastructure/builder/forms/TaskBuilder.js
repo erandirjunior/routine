@@ -1,9 +1,8 @@
 import FormBuilder from 'src/app/infrastructure/builder/forms/FormBuilder'
-import Input from 'src/app/infrastructure/fields/Input'
-import ButtonIcon from 'src/app/infrastructure/fields/ButtonIcon'
-import CheckBox from 'src/app/infrastructure/fields/CheckBox'
-import Select from 'src/app/infrastructure/fields/Select'
-import ButtonDateIcon from 'src/app/infrastructure/fields/ButtonDateIcon'
+import Input from 'src/app/infrastructure/components/fields/Input'
+import ButtonIcon from 'src/app/infrastructure/components/fields/ButtonIcon'
+import CheckBox from 'src/app/infrastructure/components/fields/CheckBox'
+import Select from 'src/app/infrastructure/components/fields/Select'
 
 export default class TaskBuilder extends FormBuilder {
   createFields () {
@@ -11,82 +10,69 @@ export default class TaskBuilder extends FormBuilder {
   }
 
   insertFirstFields () {
+    const btnCheck = new CheckBox()
+      .setModel('repeat')
+      .setSize('xl')
+      .setColor('teal-5')
+      .setColumnStyle('col-xs-12 secondary-bg-color')
+      .setStyle('color: white; margin: 0% 0% 0% 24%;')
+      .setDark(false)
+      .setLabel('Setting Repetion')
+      .setHideColumn((form) => form.id)
+      .setKeepColor(true)
+
     const title = new Input()
-      .setTitle('Title')
+      .setLabel('Title')
       .setDense(true)
       .setModel('title')
       .setColor('white')
-      .setClass('col-xs-12 secondary-bg-color')
-      .setStyle('color: white; margin: 0% 5% 0% 5%')
+      .setColumnStyle('col-xs-12 secondary-bg-color')
+      .setStyle('color: white; margin: 3% 5% 2% 5%')
       .setFilled(true)
-      .setDarkMode(true)
-      .setErrorMessage('You should add at least one task!')
-
-    const btnCheck = new CheckBox()
-      .setModel('repeat')
-      .setColor('teal-5')
-      .setClass('col-xs-6 secondary-bg-color')
-      .setStyle('color: white; margin: 0% 0% 0% 0%')
-      .setDarkMode(false)
-      .setTitle('Repeat task until')
-      .setDisable((field, form) => !!form.id)
-
-    const finalDate = new ButtonDateIcon()
-      .setModel('finalDate')
-      .setIcon('event')
-      .setClass('col-xs-1 secondary-bg-color')
-      .setStyle('color: teal-5; margin: 20% 0% 0% 0%')
-      .setColor('teal-5')
-      .setRound(true)
-      .setDisable((field, form) => !form.repeat || !!form.id)
-
-    const titleDate = new Input()
-      .setModel('finalDate')
-      .setColor('white')
-      .setClass('col-xs-5 secondary-bg-color')
-      .setStyle('color: white; margin: 5% 15% 0% 14%')
-      .setFilled(true)
-      .setDarkMode(true)
-      .setDisable(() => true)
-      .setDense(true)
+      .setDark(true)
+      .setErrorMessage('You should define a title!')
 
     const select = new Select()
-      .setTitle('Group')
+      .setLabel('Group')
       .setModel('groupId')
+      .setFilled(true)
       .setOptionValue('value')
       .setOptionLabel('label')
-      .setDarkMode(true)
-      .setClass('col-xs-12 secondary-bg-color')
+      .setHasCustomOptions(true)
+      .setHasContent(true)
+      .setHasLabel(true)
+      .setHasAfterIcon(true)
+      .setDark(true)
+      .setColumnStyle('col-xs-12 secondary-bg-color')
       .setStyle('margin: 0% 5% 0%')
       .setColor('white')
-      .setErrorMessage('You should select a option!')
+      .setErrorMessage('You should select an option!')
       .setDense(true)
 
     const taskTitle = new Input()
-      .setTitle('Task')
+      .setLabel('Task')
       .setModel('taskTitle')
       .setColor('white')
-      .setClass('col-xs-9 secondary-bg-color')
-      .setStyle('color: white; margin: 0% 0% 0% 7%')
+      .setColumnStyle('col-xs-10 secondary-bg-color')
+      .setStyle('color: white; margin: 2% 2% 0% 7%')
       .setFilled(true)
-      .setDarkMode(true)
+      .setDark(true)
       .setErrorMessage('You should add at least one task!')
       .setDense(true)
+      .setAutogrow(true)
 
     const addActivity = new ButtonIcon()
       .setIcon('add')
       .setColor('teal-5')
       .setTextColor('white')
       .setAlign('center')
-      .setClass('col-xs-3 secondary-bg-color')
-      .setStyle('margin: 1% 0%; font-size: 15px;')
-      .setClick('handleTaskItem')
+      .setColumnStyle('col-xs-2 secondary-bg-color')
+      .setStyle('margin: 10% 0% 0% 4%; font-size: 14px;')
+      .setClick('handlerTaskItem')
       .setRound(false)
       .setSize('md')
 
     this.addField(btnCheck)
-    this.addField(finalDate)
-    this.addField(titleDate)
     this.addField(title)
     this.addField(select)
     this.addField(taskTitle)
@@ -94,10 +80,10 @@ export default class TaskBuilder extends FormBuilder {
   }
 
   addOptions (options) {
-    this.fields[4].setOptions(options)
+    this.fields[2].setOptions(options)
   }
 
   modifyIconButton (icon) {
-    this.fields[6].setIcon(icon)
+    this.fields[4].setIcon(icon)
   }
 }

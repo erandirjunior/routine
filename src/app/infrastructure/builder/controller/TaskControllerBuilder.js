@@ -5,7 +5,7 @@ import TaskFindAll from 'src/app/application/controllers/task/TaskFindAll'
 import TaskDelete from 'src/app/application/controllers/task/TaskDelete'
 import TaskFindByGroup from 'src/app/application/controllers/task/TaskFindByGroup'
 import TaskItemControllerBuilder from 'src/app/infrastructure/builder/controller/TaskItemControllerBuilder'
-import DateHandler from 'src/app/infrastructure/components/date/DateHandler'
+import dateHandler from 'src/app/infrastructure/components/date/dateHandler.js'
 import TaskUpdate from 'src/app/application/controllers/task/TaskUpdate'
 import TaskFinish from 'src/app/application/controllers/task/TaskFinish'
 import TaskFindAllByGroup from 'src/app/application/controllers/task/TaskAllFindByGroup'
@@ -15,7 +15,7 @@ export default class GroupControllerBuilder {
     return new TaskCreate(
       TaskRepositoryBuilder.create(),
       TaskItemControllerBuilder.create(),
-      new DateHandler()
+      dateHandler()
     )
   }
 
@@ -29,7 +29,7 @@ export default class GroupControllerBuilder {
   static findAll () {
     return new TaskFindAll(
       TaskRepositoryBuilder.create(),
-      new DateHandler()
+      dateHandler()
     )
   }
 
@@ -54,7 +54,7 @@ export default class GroupControllerBuilder {
   static findByGroup () {
     return new TaskFindByGroup(
       TaskRepositoryBuilder.create(),
-      new DateHandler()
+      dateHandler()
     )
   }
 

@@ -1,72 +1,71 @@
 <template>
   <q-page class="q-pa-xs">
-    <q-header elevated class="primary-bg-color">
-      <q-toolbar>
-        <q-btn
-          round
-          flat
-          icon="keyboard_arrow_left"
-          color="white"
-          stack
-          to="/"
-        />
-        <q-space/>
-        <q-btn
-          round
-          flat
-          icon="done_outline"
-          color="white"
-          stack
-          @click="finishFullTask"
-          v-if="!!form.id"
-        />
-      </q-toolbar>
-    </q-header>
+    <header-action :id="form.id" @finishTask="finishFullTask"/>
+
     <form-factory
+      class-factory="row q-col-gutter-xs"
       :fields="fields"
       :form="form"
       :validation="$v"
       @formAction="action"/>
+
     <q-separator dark style="height: 5px;"/>
+
     <div class="row q-gutter-xs secondary-bg-color">
       <div class="col-xs-12">
-        <list-action-component
-          style="margin: 0% 5%"
-          section="name"
-          :data="form.tasks"
-          :components="buttons.getFields()"
-          @action="action"
-        />
+        <list-component separator="true" :data="form.tasks" :dark="true" style="margin: 0% 4%">
+          <div slot-scope="row" style="display: contents;">
+            <q-item-section style="margin: 2% 0%" @click="openListAction(row.row)">
+              <q-item-label>
+                <q-input dark dense :value="row.row.name" autogrow readonly borderless /></q-item-label>
+            </q-item-section>
+
+            <q-item-section side>
+              <q-icon name="done_all" color="white" size="md" v-if="row.row.finished"/>
+            </q-item-section>
+          </div>
+        </list-component>
       </div>
     </div>
-    <q-btn
-      style="margin-top: 10px"
-      class="full-width"
-      color="teal-5"
-      label="SAVE"
-      v-if="showSaveButton()"
-      @click="submit"
-    />
+
+    <q-footer reveal>
+      <q-btn
+        class="full-width"
+        color="teal-5"
+        label="SAVE"
+        @click="submit"
+      />
+    </q-footer>
+
+    <q-dialog v-model="form.repeat" position="bottom">
+      <repetion :form="form.date" @close="closeDateModal" />
+    </q-dialog>
+
+    <q-dialog v-model="dialogListAction" position="bottom" style="height: 5em">
+      <button-item-handler @handlerItem="action"/>
+    </q-dialog>
   </q-page>
 </template>
 
 <script>
-import TaskBuilder from '../../infrastructure/builder/forms/TaskBuilder'
-import FormFactory from '../../infrastructure/view/components/form/FormFactory'
-import handlerFormMixin from '../../infrastructure/view/mixins/handlerFormMixin'
+import TaskBuilder from 'builder/forms/TaskBuilder'
+import FormFactory from 'components/general/form/FormFactory'
+import handlerFormMixin from 'mixins/handlerFormMixin'
+import ButtonItemHandler from 'components/task/ButtonItemHandler'
+import HeaderAction from 'components/task/HeaderAction'
+import Repetion from 'components/task/Repetion'
+import dateHandler from '../../infrastructure/components/date/dateHandler'
 import { required } from 'vuelidate/lib/validators'
-import ListButtonBuilder from '../../infrastructure/builder/forms/ListButtonBuilder'
-import ListActionComponent from '../../infrastructure/view/components/list/ListActionComponent'
-import TaskControllerBuilder from '../../infrastructure/builder/controller/TaskControllerBuilder'
-import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
-import TaskItemControllerBuilder from '../../infrastructure/builder/controller/TaskItemControllerBuilder'
+import TaskControllerBuilder from 'builder/controller/TaskControllerBuilder'
+import GroupControllerBuilder from 'builder/controller/GroupControllerBuilder'
+import TaskItemControllerBuilder from 'builder/controller/TaskItemControllerBuilder'
+import ListComponent from 'components/general/list/ListComponent'
 
 export default {
   name: 'PageIndex',
   data () {
     return {
       fields: new TaskBuilder(),
-      buttons: new ListButtonBuilder(),
       controllerFind: TaskControllerBuilder.find(),
       groupController: GroupControllerBuilder.findAll(),
       controllerCreate: TaskControllerBuilder.create(),
@@ -76,18 +75,24 @@ export default {
       controllerTaskItemDelete: TaskItemControllerBuilder.delete(),
       controllerTaskItemCreate: TaskItemControllerBuilder.create(),
       controllerTaskItemUpdate: TaskItemControllerBuilder.update(),
-      step: 1,
+      dialogListAction: false,
+      dialogDateAction: false,
+      item: {},
+      dateHander: dateHandler(),
       form: {
         id: '',
         title: '',
         taskTitle: '',
         tasks: [],
         groupId: '',
-        date: '',
         repeat: false,
-        finalDate: ''
-      },
-      position: ''
+        date: {
+          mode: '1',
+          date: '',
+          dates: [],
+          days: []
+        }
+      }
     }
   },
   mixins: [
@@ -95,10 +100,16 @@ export default {
   ],
   components: {
     FormFactory,
-    ListActionComponent
+    ButtonItemHandler,
+    HeaderAction,
+    Repetion,
+    ListComponent
   },
   validations: {
     form: {
+      title: {
+        required
+      },
       groupId: {
         required
       }
@@ -110,11 +121,23 @@ export default {
     }
   },
   methods: {
+    closeDateModal () {
+      this.form.repeat = false
+    },
+    openListAction (itemList) {
+      this.item = itemList
+      this.dialogListAction = !this.dialogListAction
+    },
     loadGroups () {
       this.groupController.findAll()
         .then(data => {
           const items = data.map(item => {
-            return { label: item.name, value: item.id }
+            return {
+              label: item.name,
+              value: item.id,
+              afterIcon: 'label',
+              afterIconColor: item.color
+            }
           })
 
           this.fields.addOptions(items)
@@ -124,10 +147,7 @@ export default {
       this.controllerFind.find(this.id)
         .then(resp => {
           this.form.id = resp.id
-          this.form.repeat = true
           this.form.groupId = resp.groupId
-          this.form.date = resp.date
-          this.form.finalDate = resp.created
           this.form.title = resp.name
           resp.tasks.forEach(task => {
             const position = this.form.tasks.length
@@ -147,12 +167,16 @@ export default {
       this.form.taskTitle = ''
       this.form.tasks = []
       this.form.groupId = ''
-      this.form.finalDate = ''
-      this.form.repeat = false
+      this.form.date = {
+        mode: '1',
+        date: '',
+        dates: [],
+        days: []
+      }
     },
-    handleTaskItem () {
+    handlerTaskItem () {
       if (this.form.taskTitle) {
-        if (this.position !== '') {
+        if (this.item.id !== undefined) {
           return this.updateDescriptionTaskItem()
         }
 
@@ -160,28 +184,27 @@ export default {
       }
     },
     updateDescriptionTaskItem () {
-      const id = this.form.tasks[this.position].id
-      const finished = this.form.tasks[this.position].finished ? 1 : 0
+      const position = this.item.position
+      const id = this.form.tasks[position].id
+      const finished = this.form.tasks[position].finished ? 1 : 0
       const description = this.form.taskTitle
       this.fields.modifyIconButton('add')
+      this.resetFields()
 
-      if (!id) {
-        this.form.tasks[this.position].name = this.form.taskTitle
-        this.resetFields()
-        return
+      if (id) {
+        return this.updateTaskItem(id, finished, description)
       }
 
-      this.updateTaskItem(id, finished, description)
+      this.form.tasks[position].name = description
     },
     resetFields () {
-      this.position = ''
+      this.item = {}
       this.form.taskTitle = ''
     },
     updateTaskItem (id, finished, description) {
       this.controllerTaskItemUpdate
         .update(id, finished, description)
         .then(() => {
-          this.resetFields()
           this.loadTaskItems('Success in updating task item!', 'green', 'thumb_up')
         })
     },
@@ -197,16 +220,12 @@ export default {
         })
     },
     addTaskItem (id, name, position, finished) {
-      this.form.tasks.push({
-        id: id,
-        name: name,
-        position: position,
-        finished: finished
-      })
+      this.form.tasks.push(this.createObjectItem(id, name, position, finished))
     },
     add () {
-      const item = this.createObjectItem()
-      this.form.taskTitle = ''
+      const position = this.form.tasks.length
+      const item = this.createObjectItem(0, this.form.taskTitle, position, 0)
+      this.resetFields()
 
       if (this.form.id) {
         return this.saveItem(item)
@@ -214,12 +233,13 @@ export default {
 
       this.form.tasks.push(item)
     },
-    createObjectItem () {
-      const position = this.form.tasks.length
+    createObjectItem (id, title, position, finished) {
       return {
-        name: this.form.taskTitle,
+        id: id,
+        name: title,
         position: position,
-        finished: false
+        finished: finished,
+        action: 'openListAction'
       }
     },
     saveItem (item) {
@@ -239,19 +259,20 @@ export default {
     showSaveButton () {
       return this.form.tasks.length > 0
     },
-    remove (emit) {
-      this.resetFields()
+    remove () {
+      this.dialogListAction = !this.dialogListAction
       this.fields.modifyIconButton('add')
-      const position = emit.action.value.position
+      const id = this.item.id
+      const position = this.item.position
+      this.resetFields()
 
       if (this.form.id) {
-        return this.deleteItem(position)
+        return this.deleteItem(id)
       }
 
       this.removePropertyForm(position)
     },
-    deleteItem (position) {
-      const id = this.form.tasks[position].id
+    deleteItem (id) {
       this.controllerTaskItemDelete.delete(id)
         .then(() => {
           this.loadTaskItems('Success to delete task item!', 'green', 'thumb_up')
@@ -262,22 +283,24 @@ export default {
         return item.position !== position
       })
     },
-    finishTask (emit) {
-      const id = emit.action.value.id
-      const finished = emit.action.value.finished ? 0 : 1
-      const position = emit.action.value.position
-      const description = emit.action.value.name
+    finishTask () {
+      this.dialogListAction = !this.dialogListAction
+      const finished = this.item.finished ? 0 : 1
 
       if (this.form.id) {
-        return this.updateTaskItem(id, finished, description)
+        return this.updateTaskItem(
+          this.item.id,
+          finished,
+          this.item.name
+        )
       }
 
-      this.form.tasks[position].finished = finished
+      this.form.tasks[this.item.position].finished = finished
     },
-    editTask (emit) {
-      this.form.taskTitle = emit.action.value.name
+    editTask () {
+      this.dialogListAction = !this.dialogListAction
+      this.form.taskTitle = this.item.name
       this.fields.modifyIconButton('save')
-      this.position = emit.action.value.position
     }
   },
   created () {
@@ -290,7 +313,4 @@ export default {
 </script>
 
 <style>
-  .q-checkbox__bg {
-    border-radius: 50% !important;
-  }
 </style>

@@ -5,8 +5,7 @@ export default class TaskItemCreateHandler {
 
   create (tasks, taskId) {
     tasks.forEach(object => {
-      const finished = [false, 'false'].includes(object.finished) ? 0 : 1
-      this.repository.create(object.name, taskId, finished)
+      this.repository.create(object.name, taskId, object.finished)
     })
     return Promise.resolve(true)
   }

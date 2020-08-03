@@ -8,44 +8,35 @@
         to="/task"
       />
     </q-page-sticky>
-    <q-scroll-area
-      horizontal
-      style="width: 100%;"
-      class="secondary-bg-color rounded-borders"
-    >
+    <div class="menu-scroll secondary-bg-color">
       <div class="row no-wrap">
-        <q-btn
-          flat
-          size="md"
-          color="white"
-          style="margin: 3% 0% 3% 4%"
-          label="ALL"
-          stack
-          @click="loadTasks()"
-        />
         <q-btn
           flat
           v-for="item in groups" :key="item.id"
           size="md"
-          style="margin: 3% 0%"
+          style="margin: 2% 0% 0%"
           :color="item.color"
           :label="item.name"
           stack
-          @click="loadTasksByIdGroup(item.id)"
+          @click="loadTasks(item.id)"
         />
       </div>
-    </q-scroll-area>
+    </div>
     <q-scroll-area
       class="list-main secondary-bg-color rounded-borders"
     >
-      <list-action-component
-        style="margin: 0% 5%"
-        section="name"
-        use-index-form="true"
-        :data="tasks"
-        key-components="icon"
-        @action="goToTask"
-      />
+      <list-component separator="true" :data="tasks" :dark="true" style="margin: 0% 4%">
+        <div slot-scope="row" style="display: contents;">
+          <q-item-section style="margin: 2% 0%" @click="goToTask(row.row.id)">
+            <q-item-label class="text-white">{{ row.row.title }}</q-item-label>
+            <q-item-label caption>Created in: {{ formatDate(row.row.created) }}</q-item-label>
+          </q-item-section>
+
+          <q-item-section side @click="goToTask(row.row.id)">
+            <q-icon name="label" :color="row.row.color" size="md"/>
+          </q-item-section>
+        </div>
+      </list-component>
     </q-scroll-area>
   </q-page>
 </template>
@@ -53,15 +44,15 @@
 <script>
 import Database from '../../infrastructure/persistense/Database'
 import Tables from '../../infrastructure/persistense/Tables'
-import ListActionComponent from '../../infrastructure/view/components/list/ListActionComponent'
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
 import TaskControllerBuilder from '../../infrastructure/builder/controller/TaskControllerBuilder'
-import IconListBuilder from '../../infrastructure/builder/forms/IconListBuilder'
+import ListComponent from 'components/general/list/ListComponent'
 
 export default {
   name: 'PageIndex',
   data () {
     return {
+      visible: false,
       colorButtons: [],
       color: '',
       tasks: [],
@@ -72,50 +63,48 @@ export default {
     }
   },
   components: {
-    ListActionComponent
+    ListComponent
   },
   methods: {
+    formatDate (date) {
+      return date.replace(/(\d{4})-(\d{2})-(\d{2})/, '$2/$3/$1')
+    },
     loadGroups () {
       this.groupController.findAll()
         .then(data => {
           this.groups = data
+          this.groups.unshift({
+            color: 'white',
+            name: 'ALL'
+          })
         })
     },
-    loadTasks () {
+    loadAllTasks () {
       this.taskFindAllController.findAll()
         .then(data => {
-          this.loadListItem(data)
+          this.tasks = data
         })
+    },
+    loadTasks (id = null) {
+      if (id) {
+        return this.loadTasksByIdGroup(id)
+      }
+
+      this.loadAllTasks()
     },
     loadTasksByIdGroup (id) {
       this.taskFindByGroupController.findByIdGroup(id)
         .then(data => {
-          this.loadListItem(data)
+          this.tasks = data
         })
-    },
-    loadListItem (data) {
-      this.tasks = []
-
-      data.forEach(item => {
-        let iconListBuilder = new IconListBuilder()
-        iconListBuilder.addIcon(item.color)
-
-        this.tasks.push({
-          created: item.created,
-          name: item.name,
-          id: item.id,
-          icon: iconListBuilder.getFields(),
-          action: 'goToTask'
-        })
-      })
     },
     createTableIfNotExists () {
       const database = Database.getConnection()
       const tables = new Tables(database)
       tables.createTable()
     },
-    goToTask (item) {
-      this.$router.push(`/task/${item.value.id}`)
+    goToTask (id) {
+      this.$router.push(`/task/${id}`)
     }
   },
   created () {
@@ -129,8 +118,14 @@ export default {
 <style>
   .list-main {
     width: 90%;
-    margin-top: 15%;
+    margin-top: 9%;
     border-radius: 0% 2% 2% 0%;
-    height: 24em
+    height: 27em
+  }
+  div.menu-scroll {
+    margin: 0% 0% 0% !important;
+    padding: 3%;
+    overflow: auto;
+    white-space: nowrap;
   }
 </style>

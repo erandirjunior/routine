@@ -20,10 +20,10 @@
 </template>
 
 <script>
-import handlerFormMixin from '../../infrastructure/view/mixins/handlerFormMixin'
-import TableComponent from '../../infrastructure/view/components/table/TableComponent'
+import handlerDeleteDataMixin from '../mixins/handlerDeleteDataMixin'
+import TableComponent from '../components/pages/TableComponent'
 import GroupControllerBuilder from '../../infrastructure/builder/controller/GroupControllerBuilder'
-import HeaderBack from '../components/HeaderBack'
+import HeaderBack from '../components/pages/HeaderBack'
 
 export default {
   name: 'Groups',
@@ -79,7 +79,7 @@ export default {
     }
   },
   mixins: [
-    handlerFormMixin
+    handlerDeleteDataMixin
   ],
   components: {
     TableComponent,
@@ -92,8 +92,10 @@ export default {
     },
     delete (emit) {
       this.controllerDelete.delete(emit.id)
-      this.afterSuccessDelete()
-      this.loadData()
+        .then(resp => {
+          this.afterSuccessDelete()
+          this.loadData()
+        })
     },
     edit (group) {
       this.$router.push(`/group/${group.id}`)

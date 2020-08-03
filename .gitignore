@@ -23,6 +23,14 @@ node_modules
 # Editor directories and files
 .idea
 .vscode
+
+# Log files
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Editor directories and files
+.idea
 *.suo
 *.ntvs*
 *.njsproj
@@ -132,4 +140,3 @@ dist
 
 # TernJS port file
 .tern-port
->>>>>>> 23d54dc458a5b69c1b7e0341731486eaab6199d0

@@ -54,7 +54,7 @@ export default {
       right: false,
       menu: [
         {
-          icon: 'group_work',
+          icon: 'label',
           label: 'Groups',
           to: '/groups'
         },
